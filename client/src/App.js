@@ -30,8 +30,9 @@ const App = () => {
 			})
 	}, [])
 
-	const search = () => {
-		const search = document.getElementById('search').value
+	const search = (query) => {
+		// const search = document.getElementById('search').value
+		const search = query
 		fetch('/employees', {
 			method: 'POST',
 			body: JSON.stringify({ query: search }),
@@ -61,9 +62,9 @@ const App = () => {
 
 	return (
 		<div>
-			<SearchBar></SearchBar>
-			<input type='text' id='search' placeholder='search...'></input>
-			<button onClick={search}>Search</button>
+			<SearchBar search={search}></SearchBar>
+			{/* <input type='text' id='search' placeholder='search...'></input>
+			<button onClick={search}>Search</button> */}
 			{/* <label>Sort</label>
 			<select id='select'>
 				<option value='id-asc'>Id Ascending</option>
