@@ -9,16 +9,6 @@ class Employee {
 		this.job_title = job_title
 	}
 
-	// constructor(employee) {
-	//   this.id = employee.id
-	// 	this.first_name = employee.first_name
-	// 	this.last_name = employee.last_name
-	// 	this.email = employee.email
-	// 	this.gender = employee.gender
-	// 	this.salary = employee.salary
-	// 	this.job_title = employee.job_title
-	// }
-
 	display = () => {
 		return (
 			<p key={this.id}>

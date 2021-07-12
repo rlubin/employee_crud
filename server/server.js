@@ -19,20 +19,27 @@ connection.connect((error) => {
 	console.log(`connected as id ${connection.threadId}`)
 })
 
+app.use(express.json()) // for parsing application/json
+
 app.get('/employees', (req, res) => {
+	console.log(`GET /employees ${Date()}`)
 	connection.query('SELECT * FROM employees', (error, results, fields) => {
 		if (error) console.log(error)
-		console.log(`/employees ${Date()}`)
 		res.json({ employees: results })
 	})
 })
 
 app.post('/employees', (req, res) => {
-	connection.query('SELECT * FROM employees', (error, results, fields) => {
-		if (error) console.log(error)
-		console.log(`/employees ${Date()}`)
-		res.json({ employees: results })
-	})
+	console.log(`POST /employees ${Date()}`)
+	console.log(req.body)
+	const query = req.body.query
+	connection.query(
+		`SELECT * FROM employees WHERE id LIKE '%${query}%' OR first_name LIKE '%${query}%' OR last_name LIKE '%${query}%' OR email LIKE '%${query}%' OR gender LIKE '%${query}%' OR salary LIKE '%${query}%' OR job_title LIKE '%${query}%'`,
+		(error, results, fields) => {
+			if (error) console.log(error)
+			res.json({ employees: results })
+		}
+	)
 })
 
 app.listen(PORT, () => {
