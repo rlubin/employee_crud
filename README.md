@@ -1,5 +1,9 @@
 # Employee CRUD
 
+## Description
+
+Web app that allows you to CRUD on a database of Employees.
+
 ## Setup
 
 ### Requirements
