@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 const FormDialog = (props) => {
@@ -25,12 +24,10 @@ const FormDialog = (props) => {
 			first_name: 'first_name',
 			last_name: 'last_name',
 			email: 'email',
-			gender: 'gender',
+			gender: 'Male',
 			salary: 'salary',
 			job_title: 'job_title',
 		}
-		console.log('Form handleSubmit object')
-		console.table(Object.entries(object))
 		props.create(object)
 	}
 

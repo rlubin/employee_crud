@@ -37,8 +37,6 @@ class API {
 
 	static createEmployee = (employee) => {
 		const Employee = new EmployeeFactory(employee)
-		console.log('API createEmployee Employee')
-		console.table(Object.entries(Employee))
 		return fetch('/employee-create', {
 			method: 'POST',
 			body: JSON.stringify({ employee: Employee }),

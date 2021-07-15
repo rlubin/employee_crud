@@ -48,9 +48,6 @@ const App = () => {
 	}, [sort]) // throws a warning, however can't add employees to dependency list
 
 	const createEmployee = (object) => {
-		// const emp = new Employee()
-		console.log('App createEmployee object')
-		console.table(Object.entries(object))
 		API.createEmployee(object)
 	}
 
