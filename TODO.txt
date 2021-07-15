@@ -7,9 +7,10 @@
 
 -change everything to camel changes
 -put all exports at the bottom
-
 -all arrow functions
-
--add refresh button to reset employees
-
 -remove stupid id's and labels from example components
+
+BUG
+-initial get request on load
+-second post request on searching being empty
+-comment out on load useEffect for now

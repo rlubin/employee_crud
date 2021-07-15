@@ -1,15 +1,18 @@
 import React from 'react'
 import SearchBar from './SearchBar'
-import SortBar from './SortBar'
+import SortDropdown from './SortDropdown'
 import Box from '@material-ui/core/Box'
 
-const SearchAndSortBar = (props) => {
+const NavBar = (props) => {
 	return (
 		<Box alignItems='center' display='flex' justifyContent='center'>
 			<SearchBar search={props.search}></SearchBar>
-			<SortBar sort={props.sort} sortOptions={props.sortOptions}></SortBar>
+			<SortDropdown
+				sort={props.sort}
+				sortState={props.sortState}
+				sortOptions={props.sortOptions}></SortDropdown>
 		</Box>
 	)
 }
 
-export default SearchAndSortBar
+export default NavBar

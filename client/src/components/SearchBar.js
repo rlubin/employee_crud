@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import SearchIcon from '@material-ui/icons/Search'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,26 +34,28 @@ const SearchBar = (props) => {
 			noValidate
 			autoComplete='off'
 			onSubmit={handleSubmit}>
-			<TextField
-				InputProps={{
-					startAdornment: (
-						<InputAdornment position='start'>
-							<SearchIcon />
-						</InputAdornment>
-					),
-				}}
-				variant='outlined'
-				value={search}
-				onInput={(e) => setSearch(e.target.value)}
-			/>
-			<Button
-				className={classes.button}
-				variant='contained'
-				color='primary'
-				onClick={handleSubmit}
-				size='large'>
-				Search
-			</Button>
+			<Box alignItems='center' display='flex' justifyContent='center'>
+				<TextField
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position='start'>
+								<SearchIcon />
+							</InputAdornment>
+						),
+					}}
+					variant='outlined'
+					value={search}
+					onInput={(e) => setSearch(e.target.value)}
+				/>
+				<Button
+					className={classes.button}
+					variant='contained'
+					color='primary'
+					onClick={handleSubmit}
+					size='large'>
+					Search
+				</Button>
+			</Box>
 		</form>
 	)
 }

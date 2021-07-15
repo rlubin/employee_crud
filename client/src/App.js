@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Employee from './components/Employee'
 import Table from './components/Table'
-import SearchAndSortBar from './components/SearchAndSortBar'
+import NavBar from './components/NavBar'
 import API from './resources/API'
 
 const App = () => {
@@ -13,23 +13,23 @@ const App = () => {
 
 	const searchEmployees = (query) => {
 		setSearch(() => setSearch(query))
+		setSort(() => setSort(sort))
 	}
 
 	const sortEmployees = (sort) => {
 		setSort(() => setSort(sort))
 	}
 
-	useEffect(() => {
-		async function anonFunc() {
-			const employeesList = await API.getEmployees()
-			setEmployees(() => setEmployees(employeesList))
-		}
-		anonFunc()
-	}, [])
+	// useEffect(() => {
+	// 	async function anonFunc() {
+	// 		const employeesList = await API.getEmployees()
+	// 		setEmployees(() => setEmployees(employeesList))
+	// 	}
+	// 	anonFunc()
+	// }, [])
 
 	useEffect(() => {
 		async function anonFunc() {
-			if (search === '') return
 			const employeesList = await API.searchEmployees(search)
 			setEmployees(() => setEmployees(employeesList))
 		}
@@ -48,10 +48,11 @@ const App = () => {
 
 	return (
 		<div>
-			<SearchAndSortBar
+			<NavBar
 				search={searchEmployees}
 				sort={sortEmployees}
-				sortOptions={employeeSortOptions}></SearchAndSortBar>
+				sortState={sort}
+				sortOptions={employeeSortOptions}></NavBar>
 			<Table columns={employeeTableColumns} rows={employees}></Table>
 		</div>
 	)

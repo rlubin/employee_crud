@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const SortBar = (props) => {
+const SortDropdown = (props) => {
 	const classes = useStyles()
-	const [sort, setSort] = useState(props.sortOptions[0].value)
+	const [sort, setSort] = useState(props.sortState)
 
 	const handleChange = (event) => {
 		setSort(() => setSort(event.target.value))
@@ -38,4 +38,4 @@ const SortBar = (props) => {
 	)
 }
 
-export default SortBar
+export default SortDropdown
