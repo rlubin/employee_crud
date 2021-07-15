@@ -34,6 +34,60 @@ class API {
 				console.log(error)
 			})
 	}
+
+	static createEmployee = (employee) => {
+		const Employee = new EmployeeFactory(employee)
+		console.log('API createEmployee Employee')
+		console.table(Object.entries(Employee))
+		return fetch('/employee-create', {
+			method: 'POST',
+			body: JSON.stringify({ employee: Employee }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	}
+
+	static updateEmployee = (Employee) => {
+		return fetch('/employee-update', {
+			method: 'POST',
+			body: JSON.stringify({ employee: Employee }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	}
+
+	static deleteEmployee = (Employee) => {
+		return fetch('/employee-delete', {
+			method: 'POST',
+			body: JSON.stringify({ employee: Employee }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	}
 }
 
 export default API

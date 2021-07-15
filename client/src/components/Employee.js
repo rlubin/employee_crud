@@ -1,23 +1,36 @@
 class Employee {
-	constructor(id, firstName, lastName, email, gender, salary, jobTitle) {
+	constructor(id, first_name, last_name, email, gender, salary, job_title) {
 		this.id = id
-		this.firstName = firstName
-		this.lastName = lastName
+		this.first_name = first_name
+		this.last_name = last_name
 		this.email = email
 		this.gender = gender
 		this.salary = salary
-		this.jobTitle = jobTitle
+		this.job_title = job_title
+	}
+
+	static employeeGenders = () => {
+		return [
+			'Male',
+			'Female',
+			'Bigender',
+			'Polygender',
+			'Genderqueer',
+			'Genderfluid',
+			'Non-binary',
+			'Agender',
+		]
 	}
 
 	static employeeTableColumns = () => {
 		return [
 			{ name: 'Id', width: 50, value: 'id' },
-			{ name: 'First name', width: 75, value: 'firstName' },
-			{ name: 'Last name', width: 75, value: 'lastName' },
+			{ name: 'First name', width: 75, value: 'first_name' },
+			{ name: 'Last name', width: 75, value: 'last_name' },
 			{ name: 'Email', width: 160, value: 'email' },
 			{ name: 'Gender', width: 50, value: 'gender' },
 			{ name: 'Salary', width: 50, value: 'salary' },
-			{ name: 'Job title', width: 160, value: 'jobTitle' },
+			{ name: 'Job title', width: 160, value: 'job_title' },
 		]
 	}
 
@@ -25,10 +38,10 @@ class Employee {
 		return [
 			{ label: 'Id Ascending', value: 'id-asc' },
 			{ label: 'Id Descending', value: 'id-desc' },
-			{ label: 'First name Ascending', value: 'firstName-asc' },
-			{ label: 'First name Descending', value: 'firstName-desc' },
-			{ label: 'Last name Ascending', value: 'lastName-asc' },
-			{ label: 'Last name Descending', value: 'lastName-desc' },
+			{ label: 'First name Ascending', value: 'first_name-asc' },
+			{ label: 'First name Descending', value: 'first_name-desc' },
+			{ label: 'Last name Ascending', value: 'last_name-asc' },
+			{ label: 'Last name Descending', value: 'last_name-desc' },
 		]
 	}
 

@@ -42,6 +42,57 @@ app.post('/employees', (req, res) => {
 	)
 })
 
+const getMaxId = () => {
+	connection.query(
+		`SELECT MAX(id) FROM employees`,
+		(error, results, fields) => {
+			if (error) console.log(error)
+			console.log(`results: ${results}`)
+			return results
+		}
+	)
+}
+
+app.post('/employee-create', (req, res) => {
+	console.log(`POST /employees-update ${Date()}`)
+	console.log(req.body)
+	const employee = req.body.employee
+	console.log('post /employee-create employee')
+	console.table(employee)
+	console.log(employee.first_name, typeof employee.first_name)
+	const column = `MAX(id)`
+	connection.query(
+		`SELECT ${column} FROM employees`,
+		(error, results, fields) => {
+			if (error) console.log(error)
+			connection.query(
+				`INSERT INTO employees VALUES (${results[0][column] + 1}, ${
+					employee.first_name
+				}, ${employee.last_name}, ${employee.email}, ${employee.gender}, ${
+					employee.salary
+				}, ${employee.job_title})`,
+				(error, results, fields) => {
+					if (error) console.log(error)
+					console.log('employee created')
+				}
+			)
+		}
+	)
+})
+
+app.post('/employee-update', (req, res) => {
+	console.log(`POST /employees-update ${Date()}`)
+	console.log(req.body)
+	const employee = req.body.employee
+	connection.query(
+		`UPDATE FROM employees WHERE id='%${query}%'`,
+		(error, results, fields) => {
+			if (error) console.log(error)
+			res.json({ employees: results })
+		}
+	)
+})
+
 app.listen(PORT, () => {
 	console.log(`server running on localhost:${PORT}`)
 })

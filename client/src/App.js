@@ -3,6 +3,7 @@ import Employee from './components/Employee'
 import Table from './components/Table'
 import NavBar from './components/NavBar'
 import API from './resources/API'
+import Form from './components/Form'
 
 const App = () => {
 	const [employees, setEmployees] = useState([])
@@ -46,6 +47,13 @@ const App = () => {
 		setEmployees(() => setEmployees(employeesList))
 	}, [sort]) // throws a warning, however can't add employees to dependency list
 
+	const createEmployee = (object) => {
+		// const emp = new Employee()
+		console.log('App createEmployee object')
+		console.table(Object.entries(object))
+		API.createEmployee(object)
+	}
+
 	return (
 		<div>
 			<NavBar
@@ -54,6 +62,7 @@ const App = () => {
 				sortState={sort}
 				sortOptions={employeeSortOptions}></NavBar>
 			<Table columns={employeeTableColumns} rows={employees}></Table>
+			<Form create={createEmployee}></Form>
 		</div>
 	)
 }

@@ -10,7 +10,21 @@
 -all arrow functions
 -remove stupid id's and labels from example components
 
+-add routes to server so that /employees can be a separate file and a little more comphrensive
+-add a basic login authentication path
+-add database for logging in
+
+-add reset button???
+-go back to old commit and grab functionality??
+
+-sanitize user input
+--remove special characters
+
+-valid input on client or server side?
+
 BUG
 -initial get request on load
 -second post request on searching being empty
 -comment out on load useEffect for now
+
+-when creating an employee data gets lost on server side
