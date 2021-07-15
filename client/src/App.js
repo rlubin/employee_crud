@@ -1,80 +1,58 @@
-import Search from '@material-ui/icons/Search'
 import React, { useState, useEffect } from 'react'
 import Employee from './components/Employee'
-import SearchBar from './components/SearchBar'
 import Table from './components/Table'
+import SearchAndSortBar from './components/SearchAndSortBar'
+import API from './resources/API'
 
 const App = () => {
 	const [employees, setEmployees] = useState([])
-	const [sort, setSort] = useState('id-asc')
+	const employeeTableColumns = Employee.employeeTableColumns()
+	const employeeSortOptions = Employee.employeeSortOptions()
+	const [sort, setSort] = useState(employeeSortOptions[0].value)
+	const [search, setSearch] = useState('')
+
+	const searchEmployees = (query) => {
+		setSearch(() => setSearch(query))
+	}
+
+	const sortEmployees = (sort) => {
+		setSort(() => setSort(sort))
+	}
 
 	useEffect(() => {
-		fetch('/employees')
-			.then((res) => res.json())
-			.then((data) => {
-				let employees_list = data.employees.map((employee) => {
-					return new Employee(
-						employee.id,
-						employee.first_name,
-						employee.last_name,
-						employee.email,
-						employee.gender,
-						employee.salary,
-						employee.job_title
-					)
-				})
-				setEmployees(() => setEmployees(employees_list))
-			})
-			.catch((error) => {
-				console.log(error)
-			})
+		async function anonFunc() {
+			const employeesList = await API.getEmployees()
+			setEmployees(() => setEmployees(employeesList))
+		}
+		anonFunc()
 	}, [])
 
-	const search = (query) => {
-		// const search = document.getElementById('search').value
-		const search = query
-		fetch('/employees', {
-			method: 'POST',
-			body: JSON.stringify({ query: search }),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				let employees_list = data.employees.map((employee) => {
-					return new Employee(
-						employee.id,
-						employee.first_name,
-						employee.last_name,
-						employee.email,
-						employee.gender,
-						employee.salary,
-						employee.job_title
-					)
-				})
-				setEmployees(() => setEmployees(employees_list))
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	}
+	useEffect(() => {
+		async function anonFunc() {
+			if (search === '') return
+			const employeesList = await API.searchEmployees(search)
+			setEmployees(() => setEmployees(employeesList))
+		}
+		anonFunc()
+	}, [search])
+
+	useEffect(() => {
+		const sortParams = sort.split('-')
+		let employeesList = Employee.sortEmployees(
+			employees,
+			sortParams[0],
+			sortParams[1]
+		)
+		setEmployees(() => setEmployees(employeesList))
+	}, [sort]) // throws a warning, however can't add employees to dependency list
 
 	return (
 		<div>
-			<SearchBar search={search}></SearchBar>
-			{/* <input type='text' id='search' placeholder='search...'></input>
-			<button onClick={search}>Search</button> */}
-			{/* <label>Sort</label>
-			<select id='select'>
-				<option value='id-asc'>Id Ascending</option>
-				<option value='id-desc'>Id Descending</option>
-				<option value='first-name-asc'>First Name Ascending</option>
-				<option value='first-name-desc'>First Name Descending</option>
-				<option value='last-name-asc'>Last Name Ascending</option>
-				<option value='last-name-desc'>Last Name Descending</option>
-			</select> */}
-			<Table rows={employees}></Table>
+			<SearchAndSortBar
+				search={searchEmployees}
+				sort={sortEmployees}
+				sortOptions={employeeSortOptions}></SearchAndSortBar>
+			<Table columns={employeeTableColumns} rows={employees}></Table>
 		</div>
 	)
 }

@@ -23,7 +23,7 @@ const useStyles1 = makeStyles((theme) => ({
 	},
 }))
 
-function TablePaginationActions(props) {
+const TablePaginationActions = (props) => {
 	const classes = useStyles1()
 	const theme = useTheme()
 	const { count, page, rowsPerPage, onPageChange } = props
@@ -95,7 +95,7 @@ const useStyles2 = makeStyles({
 	},
 })
 
-export default function CustomPaginationActionsTable(props) {
+const CustomPaginationActionsTable = (props) => {
 	const classes = useStyles2()
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(5)
@@ -118,13 +118,11 @@ export default function CustomPaginationActionsTable(props) {
 			<Table className={classes.table} aria-label='custom pagination table'>
 				<TableHead>
 					<TableRow>
-						<TableCell style={{ width: 50 }}>Id</TableCell>
-						<TableCell style={{ width: 75 }}>First name</TableCell>
-						<TableCell style={{ width: 75 }}>Last name</TableCell>
-						<TableCell style={{ width: 160 }}>Email</TableCell>
-						<TableCell style={{ width: 50 }}>Gender</TableCell>
-						<TableCell style={{ width: 50 }}>Salary</TableCell>
-						<TableCell style={{ width: 160 }}>Job title</TableCell>
+						{props.columns.map((object, key) => (
+							<TableCell key={key} style={{ width: object.width }}>
+								{object.name}
+							</TableCell>
+						))}
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -133,18 +131,16 @@ export default function CustomPaginationActionsTable(props) {
 						: rows
 					).map((row, key) => (
 						<TableRow key={key}>
-							<TableCell style={{ width: 50 }} component='th' scope='row'>
-								{row.id}
-							</TableCell>
-							<TableCell style={{ width: 75 }}>{row.first_name}</TableCell>
-							<TableCell style={{ width: 75 }}>{row.last_name}</TableCell>
-							<TableCell style={{ width: 160 }}>{row.email}</TableCell>
-							<TableCell style={{ width: 50 }}>{row.gender}</TableCell>
-							<TableCell style={{ width: 50 }}>{row.salary}</TableCell>
-							<TableCell style={{ width: 160 }}>{row.job_title}</TableCell>
+							{props.columns.map((object) => (
+								<TableCell
+									key={`${key}${object.value}`}
+									style={{ width: object.width }}
+									scope='row'>
+									{row[object.value]}
+								</TableCell>
+							))}
 						</TableRow>
 					))}
-
 					{emptyRows > 0 && (
 						<TableRow style={{ height: 53 * emptyRows }}>
 							<TableCell colSpan={7} />
@@ -173,3 +169,5 @@ export default function CustomPaginationActionsTable(props) {
 		</TableContainer>
 	)
 }
+
+export default CustomPaginationActionsTable

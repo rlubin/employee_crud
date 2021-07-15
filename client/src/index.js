@@ -4,9 +4,12 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
-	<React.StrictMode>
+	// had to remove strictmode because material-ui devs not keeping up with react
+	// <React.StrictMode>
+	<>
 		<App />
-	</React.StrictMode>,
+		{/* </React.StrictMode>, */}
+	</>,
 	document.getElementById('root')
 )
 

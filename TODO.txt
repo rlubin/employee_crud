@@ -1,6 +1,15 @@
-READEME
-  give screenshots of website and console for running
+-READEME
+--add screenshots
 
-  comment the code
+-comment the code purpose, arguments, return
+-use oop
+-add testing 100% code coverage
 
-use oop
+-change everything to camel changes
+-put all exports at the bottom
+
+-all arrow functions
+
+-add refresh button to reset employees
+
+-remove stupid id's and labels from example components
