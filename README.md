@@ -13,8 +13,8 @@ Web app that allows you to CRUD on a database of Employees.
 
 ### Database
 
-1. Create a new table using db/employees_table.sql
-2. Populate the table using db/employees.sql
+1. Create a new table using db/create_employees.sql
+2. Populate the table using db/insert_employees.sql
 </ol>
 
 ### Server
