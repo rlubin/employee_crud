@@ -19,12 +19,17 @@
 
 -sanitize user input
 --remove special characters
+-sanitize and validiate user input on form and search
+-for sql queries in server using parameter binding
 
--valid input on client or server side?
+-client and server side validation?
 
 BUG
 -initial get request on load
 -second post request on searching being empty
 -comment out on load useEffect for now
 
--when creating an employee data gets lost on server side
+-running a search should take you back to page 1
+--if you search and you are out of range of the data will throw error
+
+-EMPLOYEE JUST ADDED RANDOMLY, INFORMATION IS EQUAL TO LAST EMPLOYEE ADDED AFTER 2M OF IDLE??? WTF???

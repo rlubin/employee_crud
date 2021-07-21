@@ -3,7 +3,7 @@ import Employee from './components/Employee'
 import Table from './components/Table'
 import NavBar from './components/NavBar'
 import API from './resources/API'
-import Form from './components/Form'
+import CreateForm from './components/CreateForm'
 
 const App = () => {
 	const [employees, setEmployees] = useState([])
@@ -59,7 +59,9 @@ const App = () => {
 				sortState={sort}
 				sortOptions={employeeSortOptions}></NavBar>
 			<Table columns={employeeTableColumns} rows={employees}></Table>
-			<Form create={createEmployee}></Form>
+			<CreateForm
+				create={createEmployee}
+				genders={Employee.employeeGenders()}></CreateForm>
 		</div>
 	)
 }

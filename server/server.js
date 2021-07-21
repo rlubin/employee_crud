@@ -34,7 +34,8 @@ app.post('/employees', (req, res) => {
 	console.log(req.body)
 	const query = req.body.query
 	connection.query(
-		`SELECT * FROM employees WHERE id LIKE '%${query}%' OR first_name LIKE '%${query}%' OR last_name LIKE '%${query}%' OR email LIKE '%${query}%' OR gender LIKE '%${query}%' OR salary LIKE '%${query}%' OR job_title LIKE '%${query}%'`,
+		`SELECT * FROM employees WHERE id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR gender LIKE ? OR salary LIKE ? OR job_title LIKE ?`,
+		Array(7).fill(`%${query}%`),
 		(error, results, fields) => {
 			if (error) console.log(error)
 			res.json({ employees: results })
@@ -71,18 +72,18 @@ app.post('/employee-create', (req, res) => {
 	)
 })
 
-app.post('/employee-update', (req, res) => {
-	console.log(`POST /employees-update ${Date()}`)
-	console.log(req.body)
-	const employee = req.body.employee
-	connection.query(
-		`UPDATE FROM employees WHERE id='%${query}%'`,
-		(error, results, fields) => {
-			if (error) console.log(error)
-			res.json({ employees: results })
-		}
-	)
-})
+// app.post('/employee-update', (req, res) => {
+// 	console.log(`POST /employees-update ${Date()}`)
+// 	console.log(req.body)
+// 	const employee = req.body.employee
+// 	connection.query(
+// 		`UPDATE FROM employees WHERE id='%${query}%'`,
+// 		(error, results, fields) => {
+// 			if (error) console.log(error)
+// 			res.json({ employees: results })
+// 		}
+// 	)
+// })
 
 app.listen(PORT, () => {
 	console.log(`server running on localhost:${PORT}`)

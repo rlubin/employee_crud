@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
@@ -97,8 +97,8 @@ const useStyles2 = makeStyles({
 
 const CustomPaginationActionsTable = (props) => {
 	const classes = useStyles2()
-	const [page, setPage] = React.useState(0)
-	const [rowsPerPage, setRowsPerPage] = React.useState(5)
+	const [page, setPage] = useState(0)
+	const [rowsPerPage, setRowsPerPage] = useState(5)
 	const rows = props.rows
 
 	const emptyRows =

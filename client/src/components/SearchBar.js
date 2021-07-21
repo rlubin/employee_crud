@@ -23,8 +23,13 @@ const SearchBar = (props) => {
 	const classes = useStyles()
 	const [search, setSearch] = useState('')
 
+	const sanitizeInput = (search) => {
+		return search
+	}
+
 	const handleSubmit = (event) => {
 		event.preventDefault()
+		const sanitized = sanitizeInput(search)
 		props.search(search)
 	}
 
@@ -36,6 +41,7 @@ const SearchBar = (props) => {
 			onSubmit={handleSubmit}>
 			<Box alignItems='center' display='flex' justifyContent='center'>
 				<TextField
+					label='Search'
 					InputProps={{
 						startAdornment: (
 							<InputAdornment position='start'>
