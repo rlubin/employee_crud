@@ -33,13 +33,21 @@ const FormDialog = (props) => {
 	const [last_nameError, setLastNameError] = useState(false)
 	const [emailError, setEmailError] = useState(false)
 	const [salaryError, setSalaryError] = useState(false)
+	const [first_nameHelperText, setFirstNameHelperText] = useState(null)
+	const [last_nameHelperText, setLastNameHelperText] = useState(null)
+	const [emailHelperText, setEmailHelperText] = useState(null)
+	const [salaryHelperText, setSalaryHelperText] = useState(null)
 
 	const handleClickOpen = () => {
 		setOpen(true)
 		setFirstNameError(false)
+		setFirstNameHelperText(null)
 		setLastNameError(false)
+		setLastNameHelperText(null)
 		setEmailError(false)
+		setEmailHelperText(null)
 		setSalaryError(false)
+		setSalaryHelperText(null)
 	}
 
 	const handleClose = () => {
@@ -49,16 +57,19 @@ const FormDialog = (props) => {
 	const handleFirstNameChange = (event) => {
 		setFirstName(event.target.value)
 		setFirstNameError(false)
+		setFirstNameHelperText(null)
 	}
 
 	const handleLastNameChange = (event) => {
 		setLastName(event.target.value)
 		setLastNameError(false)
+		setLastNameHelperText(null)
 	}
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value)
 		setEmailError(false)
+		setEmailHelperText(null)
 	}
 
 	const handleGenderChange = (event) => {
@@ -68,6 +79,7 @@ const FormDialog = (props) => {
 	const handleSalaryChange = (event) => {
 		setSalary(event.target.value)
 		setSalaryError(false)
+		setSalaryHelperText(null)
 	}
 
 	const handleJobTitleChange = (event) => {
@@ -84,13 +96,25 @@ const FormDialog = (props) => {
 		if (first_name === '') errors.push('first_nameError')
 		if (last_name === '') errors.push('last_nameError')
 		if (email === '' || !validateEmail(email)) errors.push('emailError') // check if valid email
-		if (Number(salary) < 0) errors.push('salaryError') // check salary must be greater than or equal to 0
+		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError') // check salary must be greater than or equal to 0
 		for (let error of errors) {
 			console.log(`${error}`)
-			if (error === 'first_nameError') setFirstNameError(true)
-			if (error === 'last_nameError') setLastNameError(true)
-			if (error === 'emailError') setEmailError(true)
-			if (error === 'salaryError') setSalaryError(true)
+			if (error === 'first_nameError') {
+				setFirstNameError(true)
+				setFirstNameHelperText('Input first name.')
+			}
+			if (error === 'last_nameError') {
+				setLastNameError(true)
+				setLastNameHelperText('Input last name.')
+			}
+			if (error === 'emailError') {
+				setEmailError(true)
+				setEmailHelperText('Input valid email "youremail@gmail.com".')
+			}
+			if (error === 'salaryError') {
+				setSalaryError(true)
+				setSalaryHelperText('Input a positive number.')
+			}
 		}
 		if (errors.length === 0) return true
 		return false
@@ -107,7 +131,7 @@ const FormDialog = (props) => {
 		}
 		sanitizeForm()
 		setOpen(false)
-		const object = {
+		const newEmployee = {
 			id: '1',
 			first_name: first_name,
 			last_name: last_name,
@@ -116,7 +140,7 @@ const FormDialog = (props) => {
 			salary: salary,
 			job_title: job_title,
 		}
-		props.create(object)
+		props.create(newEmployee)
 	}
 
 	return (
@@ -135,6 +159,7 @@ const FormDialog = (props) => {
 						variant='outlined'
 						className={classes.textField}
 						error={first_nameError}
+						helperText={first_nameHelperText}
 					/>
 					<TextField
 						onChange={handleLastNameChange}
@@ -143,6 +168,7 @@ const FormDialog = (props) => {
 						variant='outlined'
 						className={classes.textField}
 						error={last_nameError}
+						helperText={last_nameHelperText}
 					/>
 					<TextField
 						onChange={handleEmailChange}
@@ -152,6 +178,7 @@ const FormDialog = (props) => {
 						variant='outlined'
 						className={classes.textField}
 						error={emailError}
+						helperText={emailHelperText}
 					/>
 					<InputLabel>Gender</InputLabel>
 					<Select
@@ -171,6 +198,7 @@ const FormDialog = (props) => {
 						variant='outlined'
 						className={classes.textField}
 						error={salaryError}
+						helperText={salaryHelperText}
 					/>
 					<TextField
 						onChange={handleJobTitleChange}
