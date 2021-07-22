@@ -87,7 +87,7 @@ const FormDialog = (props) => {
 	}
 
 	const validateEmail = (string) => {
-		const re = /^\S+@\S+.\S+$/
+		const re = /^\S+@\S+\.\S+$/
 		return re.test(String(string).toLowerCase())
 	}
 
@@ -98,7 +98,6 @@ const FormDialog = (props) => {
 		if (email === '' || !validateEmail(email)) errors.push('emailError') // check if valid email
 		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError') // check salary must be greater than or equal to 0
 		for (let error of errors) {
-			console.log(`${error}`)
 			if (error === 'first_nameError') {
 				setFirstNameError(true)
 				setFirstNameHelperText('Input first name.')
@@ -124,11 +123,9 @@ const FormDialog = (props) => {
 
 	const handleSubmit = () => {
 		// BUG WHERE EMPLOYEE ADDS AGAIN AFTER 2M AFTER CREATING ONE THEN FETCH FAILS
-		console.log('CreateForm.js handleSubmit()')
 		if (isFormValid()) {
 			alert('employee added')
 		} else {
-			alert('form error')
 			return
 		}
 		sanitizeForm()

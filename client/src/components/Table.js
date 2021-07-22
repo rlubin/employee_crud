@@ -15,11 +15,16 @@ import FirstPageIcon from '@material-ui/icons/FirstPage'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {
 		flexShrink: 0,
 		marginLeft: theme.spacing(2.5),
+	},
+	margin: {
+		margin: theme.spacing(1),
 	},
 }))
 
@@ -123,6 +128,7 @@ const CustomPaginationActionsTable = (props) => {
 								{object.name}
 							</TableCell>
 						))}
+						<TableCell style={{ width: 31 }}></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -139,6 +145,20 @@ const CustomPaginationActionsTable = (props) => {
 									{row[object.value]}
 								</TableCell>
 							))}
+							<TableCell>
+								<IconButton
+									aria-label='delete'
+									className={classes.margin}
+									size='small'>
+									<EditIcon fontSize='inherit' />
+								</IconButton>
+								<IconButton
+									aria-label='delete'
+									className={classes.margin}
+									size='small'>
+									<DeleteIcon fontSize='inherit' />
+								</IconButton>
+							</TableCell>
 						</TableRow>
 					))}
 					{emptyRows > 0 && (

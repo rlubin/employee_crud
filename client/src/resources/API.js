@@ -36,7 +36,6 @@ class API {
 	}
 
 	static createEmployee = (employee) => {
-		console.log('API.js createEmployee()')
 		const Employee = new EmployeeFactory(employee)
 		return fetch('/employee-create', {
 			method: 'POST',
