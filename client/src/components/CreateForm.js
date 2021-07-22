@@ -123,6 +123,8 @@ const FormDialog = (props) => {
 	const sanitizeForm = () => {}
 
 	const handleSubmit = () => {
+		// BUG WHERE EMPLOYEE ADDS AGAIN AFTER 2M AFTER CREATING ONE THEN FETCH FAILS
+		console.log('CreateForm.js handleSubmit()')
 		if (isFormValid()) {
 			alert('employee added')
 		} else {
@@ -130,7 +132,6 @@ const FormDialog = (props) => {
 			return
 		}
 		sanitizeForm()
-		setOpen(false)
 		const newEmployee = {
 			id: '1',
 			first_name: first_name,
@@ -141,6 +142,7 @@ const FormDialog = (props) => {
 			job_title: job_title,
 		}
 		props.create(newEmployee)
+		setOpen(false)
 	}
 
 	return (

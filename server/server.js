@@ -64,8 +64,12 @@ app.post('/employee-create', (req, res) => {
 					employee.job_title,
 				],
 				(error, results, fields) => {
-					if (error) console.log(error)
+					if (error) {
+						console.log(error)
+						res.json({ result: 'fail' })
+					}
 					console.log('employee created')
+					res.json({ result: 'success' })
 				}
 			)
 		}
