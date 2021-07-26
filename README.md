@@ -31,3 +31,15 @@ Web app that allows you to CRUD on a database of Employees.
 
 - Run `npm i`
 - Run `npm start`
+
+## Testing
+
+### Server
+
+1. Navigate to /server
+2. Run `npm test`
+
+### Client
+
+1. Navigate to /client
+2. Run `npm test`

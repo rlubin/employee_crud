@@ -17,6 +17,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
+import API from '../resources/API'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {
@@ -118,6 +119,49 @@ const CustomPaginationActionsTable = (props) => {
 		setPage(0)
 	}
 
+	const handleEdit = (key) => {
+		alert('edit')
+		console.log(
+			`edit pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
+				page * rowsPerPage + key
+			}, employee:${Object.keys(rows[page * rowsPerPage + key])}, id:${
+				rows[page * rowsPerPage + key]['id']
+			}, first_name:${
+				rows[page * rowsPerPage + key]['first_name']
+			}, last_name:${rows[page * rowsPerPage + key]['last_name']}, email:${
+				rows[page * rowsPerPage + key]['email']
+			}, gender:${rows[page * rowsPerPage + key]['gender']}, salary:${
+				rows[page * rowsPerPage + key]['salary']
+			}, job_title:${rows[page * rowsPerPage + key]['job_title']}
+			`
+		)
+	}
+
+	const handleDelete = (key) => {
+		alert('delete')
+		const object = rows[page * rowsPerPage + key]
+		console.log(
+			`delete pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
+				page * rowsPerPage + key
+			}, employee:${Object.keys(object)}, id:${object['id']}, first_name:${
+				object['first_name']
+			}, last_name:${object['last_name']}, email:${object['email']}, gender:${
+				object['gender']
+			} , salary:${object['salary']} , job_title:${object['job_title']}
+			`
+		)
+		const newEmployee = {
+			id: object['id'],
+			first_name: object['first_name'],
+			last_name: object['last_name'],
+			email: object['email'],
+			gender: object['gender'],
+			salary: object['salary'],
+			job_title: object['job_title'],
+		}
+		API.deleteEmployee(newEmployee)
+	}
+
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table} aria-label='custom pagination table'>
@@ -147,12 +191,14 @@ const CustomPaginationActionsTable = (props) => {
 							))}
 							<TableCell>
 								<IconButton
-									aria-label='delete'
+									onClick={() => handleEdit(key)}
+									aria-label='edit'
 									className={classes.margin}
 									size='small'>
 									<EditIcon fontSize='inherit' />
 								</IconButton>
 								<IconButton
+									onClick={() => handleDelete(key)}
 									aria-label='delete'
 									className={classes.margin}
 									size='small'>
@@ -163,7 +209,7 @@ const CustomPaginationActionsTable = (props) => {
 					))}
 					{emptyRows > 0 && (
 						<TableRow style={{ height: 53 * emptyRows }}>
-							<TableCell colSpan={7} />
+							<TableCell colSpan={9} />
 						</TableRow>
 					)}
 				</TableBody>

@@ -89,6 +89,24 @@ app.post('/employee-create', (req, res) => {
 // 	)
 // })
 
+app.post('/employee-delete', (req, res) => {
+	console.log(`POST /employees-delete ${Date()}`)
+	console.log(req.body)
+	const employee = req.body.employee
+	connection.query(
+		`DELETE FROM employees WHERE id=?`,
+		[employee.id],
+		(error, results, fields) => {
+			if (error) {
+				console.log(error)
+				res.json({ result: 'fail' })
+			}
+			console.log('employee deleted')
+			res.json({ result: 'success' })
+		}
+	)
+})
+
 app.listen(PORT, () => {
 	console.log(`server running on localhost:${PORT}`)
 })

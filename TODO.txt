@@ -1,7 +1,7 @@
 -READEME
 --add screenshots
 
--comment the code purpose, arguments, return
+-comment the code purpose, inputs, outputs
 -use oop
 -add testing 100% code coverage
 
@@ -13,9 +13,6 @@
 -add routes to server so that /employees can be a separate file and a little more comphrensive
 -add a basic login authentication path
 -add database for logging in
-
--add reset button???
--go back to old commit and grab functionality??
 
 -sanitize user input
 --remove special characters
@@ -31,7 +28,3 @@ BUG
 
 -running a search should take you back to page 1
 --if you search and you are out of range of the data will throw error
-
--EMPLOYEE ADDED TWICE, SOMETHING SEEMS TO ACTIVATE ADD AGAIN AFTER 2M OF BEING IDLE ONLY HAPPENS FOR ONE ITERATION
---LOOKING AT CHROME CONSOLE IT TRIED AGAIN TO ADD BYT FAILED 
---POST http://localhost:3000/employee-create net::ERR_EMPTY_RESPONSE
