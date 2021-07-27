@@ -9,12 +9,13 @@ import Box from '@material-ui/core/Box'
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
-			margin: theme.spacing(1),
+			// margin: theme.spacing(1),
 			width: '50ch',
 			verticalAlign: 'middle',
 		},
 	},
 	button: {
+		// margin: theme.spacing(1),
 		width: '15ch',
 	},
 }))

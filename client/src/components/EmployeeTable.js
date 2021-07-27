@@ -18,10 +18,9 @@ import LastPageIcon from '@material-ui/icons/LastPage'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import API from '../resources/API'
-import CreateForm from './CreateForm'
 import Employee from './Employee'
 import EmployeeFactory from './EmployeeFactory'
-import NavBar from './NavBar'
+import EmployeeTableOptionBar from './EmployeeTableOptionBar'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {
@@ -114,13 +113,16 @@ const CustomPaginationActionsTable = (props) => {
 	const [search, setSearch] = useState('')
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(5)
-	// const rows = props.rows
-	// const [rows, setRows] = useState(props.rows)
-	const [rows, setRows] = useState(employees)
 	const columns = employeeTableColumns
+	// const rows = employees
+	const rows = employees == undefined ? [] : employees
+
+	if (rows == undefined) console.log('employees undefined')
+	console.log(rows.length)
 
 	const emptyRows =
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
+	// rowsPerPage - Math.min(rowsPerPage, employees.length - page * rowsPerPage)
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage)
@@ -132,6 +134,7 @@ const CustomPaginationActionsTable = (props) => {
 	}
 
 	useEffect(() => {
+		console.log('first load')
 		async function anonFunc() {
 			const employeesList = await API.getEmployees()
 			setEmployees(() => setEmployees(employeesList))
@@ -140,6 +143,7 @@ const CustomPaginationActionsTable = (props) => {
 	}, [])
 
 	useEffect(() => {
+		console.log('search')
 		async function anonFunc() {
 			const employeesList = await API.searchEmployees(search)
 			setEmployees(() => setEmployees(employeesList))
@@ -167,13 +171,11 @@ const CustomPaginationActionsTable = (props) => {
 	}
 
 	const createEmployee = (object) => {
-		// const id = rows[rows.length - 1]['id'] + 1
 		const id = employees[employees.length - 1]['id'] + 1
 		object['id'] = id
 		API.createEmployee(object).then((res) => console.log(res))
 		console.log(object)
 		const newEmployee = EmployeeFactory(object)
-		// setRows([...rows, newEmployee])
 		setEmployees([...employees, newEmployee])
 	}
 
@@ -217,34 +219,30 @@ const CustomPaginationActionsTable = (props) => {
 			salary: object['salary'],
 			job_title: object['job_title'],
 		}
-		// setRows(employees.filter((employee) => employee.id !== object['id']))
 		setEmployees(employees.filter((employee) => employee.id !== object['id']))
 		API.deleteEmployee(newEmployee).then((res) => console.log(res))
+		// add logic that changes the page number down one if you delete and you're past the correct number of pages
 	}
 
-	// useEffect(() => {
-	// 	setRows(props.rows)
-	// }, [props.rows])
-
 	useEffect(() => {
-		setRows(employees)
+		setEmployees(employees)
 	}, [employees])
 
-	// useEffect(() => {}, [rows])
 	useEffect(() => {}, [employees])
 
 	return (
 		<>
-			<NavBar
+			<EmployeeTableOptionBar
 				search={searchEmployees}
 				sort={sortEmployees}
 				sortState={sort}
-				sortOptions={employeeSortOptions}></NavBar>
+				sortOptions={employeeSortOptions}
+				create={createEmployee}
+				genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
 			<TableContainer component={Paper}>
 				<Table className={classes.table} aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>
-							{/* {props.columns.map((object, key) => ( */}
 							{columns.map((object, key) => (
 								<TableCell key={key} style={{ width: object.width }}>
 									{object.name}
@@ -255,16 +253,10 @@ const CustomPaginationActionsTable = (props) => {
 					</TableHead>
 					<TableBody>
 						{(rowsPerPage > 0
-							? // ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							  // : rows
-							  employees.slice(
-									page * rowsPerPage,
-									page * rowsPerPage + rowsPerPage
-							  )
-							: employees
+							? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+							: rows
 						).map((row, key) => (
 							<TableRow key={key}>
-								{/* {props.columns.map((object) => ( */}
 								{columns.map((object) => (
 									<TableCell
 										key={`${key}${object.value}`}
@@ -308,8 +300,7 @@ const CustomPaginationActionsTable = (props) => {
 									{ label: 'All', value: -1 },
 								]}
 								colSpan={7}
-								// count={rows.length}
-								count={employees.length}
+								count={rows.length}
 								rowsPerPage={rowsPerPage}
 								page={page}
 								SelectProps={{
@@ -324,9 +315,6 @@ const CustomPaginationActionsTable = (props) => {
 					</TableFooter>
 				</Table>
 			</TableContainer>
-			<CreateForm
-				create={createEmployee}
-				genders={Employee.employeeGenders()}></CreateForm>
 		</>
 	)
 }
