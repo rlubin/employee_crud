@@ -143,7 +143,9 @@ const CustomPaginationActionsTable = (props) => {
 	}, [])
 
 	useEffect(() => {
-		setEmployees(employees)
+		setEmployees(() => setEmployees(employees))
+		// const maxPageNumber = Math.floor(employees.length / rowsPerPage)
+		// if (page > maxPageNumber) setPage(page - 1)
 	}, [employees])
 
 	// useEffect(() => {}, [employees])
@@ -155,6 +157,7 @@ const CustomPaginationActionsTable = (props) => {
 			setEmployees(() => setEmployees(employeesList))
 		}
 		anonFunc()
+		setPage(0)
 	}, [search])
 
 	useEffect(() => {
@@ -206,16 +209,6 @@ const CustomPaginationActionsTable = (props) => {
 	const handleDelete = (key) => {
 		alert('delete')
 		const object = employees[page * rowsPerPage + key]
-		console.log(
-			`delete pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
-				page * rowsPerPage + key
-			}, employee:${Object.keys(object)}, id:${object['id']}, first_name:${
-				object['first_name']
-			}, last_name:${object['last_name']}, email:${object['email']}, gender:${
-				object['gender']
-			} , salary:${object['salary']} , job_title:${object['job_title']}
-			`
-		)
 		const newEmployee = {
 			id: object['id'],
 			first_name: object['first_name'],
@@ -225,9 +218,12 @@ const CustomPaginationActionsTable = (props) => {
 			salary: object['salary'],
 			job_title: object['job_title'],
 		}
+		const length = employees.length - 2
 		setEmployees(employees.filter((employee) => employee.id !== object['id']))
 		API.deleteEmployee(newEmployee).then((res) => console.log(res))
 		// add logic that changes the page number down one if you delete and you're past the correct number of pages
+		const maxPageNumber = Math.floor(length / rowsPerPage)
+		if (page > maxPageNumber) setPage(page - 1)
 	}
 
 	return (
