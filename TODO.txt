@@ -26,11 +26,15 @@ BUG
 -second post request on searching being empty
 -comment out on load useEffect for now
 
--running a search should take you back to page 1
---if you search and you are out of range of the data will throw error
-
 add logic that changes the page number down one if you delete and you're past the correct number of pages
 
 row height gets warped when edit and delete go one over the other
 
 adjust styling on components
+
+running a search should take you back to page 1
+--if you search and you are out of range of the data will throw error
+
+go over all functionality and verify that it is working correctly, if not then correct it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+columns change width depending on page (size of data fields), PROBLEM, should be static

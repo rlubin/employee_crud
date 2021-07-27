@@ -58,20 +58,29 @@ class Employee {
 		]
 	}
 
+	static lowerCase = (property) => {
+		if (isNaN(property)) return property.toLowerCase()
+		return property
+	}
+
 	static sortEmployees = (employeeList, property, direction) => {
 		if (direction === 'asc') {
 			return employeeList.sort((employee1, employee2) =>
-				employee1[property] > employee2[property]
+				this.lowerCase(employee1[property]) >
+				this.lowerCase(employee2[property])
 					? 1
-					: employee1[property] < employee2[property]
+					: this.lowerCase(employee1[property]) <
+					  this.lowerCase(employee2[property])
 					? -1
 					: 0
 			)
 		} else {
 			return employeeList.sort((employee1, employee2) =>
-				employee1[property] < employee2[property]
+				this.lowerCase(employee1[property]) <
+				this.lowerCase(employee2[property])
 					? 1
-					: employee1[property] > employee2[property]
+					: this.lowerCase(employee1[property]) >
+					  this.lowerCase(employee2[property])
 					? -1
 					: 0
 			)

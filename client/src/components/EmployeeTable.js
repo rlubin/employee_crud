@@ -115,10 +115,10 @@ const CustomPaginationActionsTable = (props) => {
 	const [rowsPerPage, setRowsPerPage] = useState(5)
 	const columns = employeeTableColumns
 	// const rows = employees
-	const rows = employees == undefined ? [] : employees
+	const rows = employees === undefined ? [] : employees
 
-	if (rows == undefined) console.log('employees undefined')
-	console.log(rows.length)
+	if (rows === undefined) console.log('employees undefined')
+	// console.log(rows.length)
 
 	const emptyRows =
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
@@ -141,6 +141,12 @@ const CustomPaginationActionsTable = (props) => {
 		}
 		anonFunc()
 	}, [])
+
+	useEffect(() => {
+		setEmployees(employees)
+	}, [employees])
+
+	// useEffect(() => {}, [employees])
 
 	useEffect(() => {
 		console.log('search')
@@ -224,22 +230,17 @@ const CustomPaginationActionsTable = (props) => {
 		// add logic that changes the page number down one if you delete and you're past the correct number of pages
 	}
 
-	useEffect(() => {
-		setEmployees(employees)
-	}, [employees])
-
-	useEffect(() => {}, [employees])
-
 	return (
 		<>
-			<EmployeeTableOptionBar
-				search={searchEmployees}
-				sort={sortEmployees}
-				sortState={sort}
-				sortOptions={employeeSortOptions}
-				create={createEmployee}
-				genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
 			<TableContainer component={Paper}>
+				<EmployeeTableOptionBar
+					search={searchEmployees}
+					sort={sortEmployees}
+					sortState={sort}
+					sortOptions={employeeSortOptions}
+					create={createEmployee}
+					genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
+				{/* <TableContainer component={Paper}> */}
 				<Table className={classes.table} aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>

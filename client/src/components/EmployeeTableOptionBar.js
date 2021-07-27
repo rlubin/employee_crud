@@ -6,7 +6,7 @@ import CreateEmployeeForm from './CreateEmployeeForm'
 
 const EmployeeTableOptionBar = (props) => {
 	return (
-		<Box alignItems='center' display='flex' justifyContent='center'>
+		<Box m={2} alignItems='center' display='flex' justifyContent='left'>
 			<SearchBar search={props.search}></SearchBar>
 			<SortDropdown
 				sort={props.sort}

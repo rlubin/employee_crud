@@ -1,10 +1,13 @@
 import React from 'react'
 import EmployeeTable from './components/EmployeeTable'
+import Box from '@material-ui/core/Box'
 
 const App = () => {
 	return (
 		<>
-			<EmployeeTable></EmployeeTable>
+			<Box m={1}>
+				<EmployeeTable></EmployeeTable>
+			</Box>
 		</>
 	)
 }
