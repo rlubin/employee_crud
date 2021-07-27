@@ -9,6 +9,19 @@ class Employee {
 		this.job_title = job_title
 	}
 
+	// NOT WORKING
+	// static createEmployee(employee) {
+	// 	return new Employee(
+	// 		employee.id,
+	// 		employee.first_name,
+	// 		employee.last_name,
+	// 		employee.email,
+	// 		employee.gender,
+	// 		employee.salary,
+	// 		employee.job_title
+	// 	)
+	// }
+
 	static employeeGenders = () => {
 		return [
 			'Male',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
@@ -18,6 +18,10 @@ import LastPageIcon from '@material-ui/icons/LastPage'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import API from '../resources/API'
+import CreateForm from './CreateForm'
+import Employee from './Employee'
+import EmployeeFactory from './EmployeeFactory'
+import NavBar from './NavBar'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {
@@ -103,9 +107,17 @@ const useStyles2 = makeStyles({
 
 const CustomPaginationActionsTable = (props) => {
 	const classes = useStyles2()
+	const [employees, setEmployees] = useState([])
+	const employeeTableColumns = Employee.employeeTableColumns()
+	const employeeSortOptions = Employee.employeeSortOptions()
+	const [sort, setSort] = useState(employeeSortOptions[0].value)
+	const [search, setSearch] = useState('')
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(5)
-	const rows = props.rows
+	// const rows = props.rows
+	// const [rows, setRows] = useState(props.rows)
+	const [rows, setRows] = useState(employees)
+	const columns = employeeTableColumns
 
 	const emptyRows =
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
@@ -119,27 +131,73 @@ const CustomPaginationActionsTable = (props) => {
 		setPage(0)
 	}
 
+	useEffect(() => {
+		async function anonFunc() {
+			const employeesList = await API.getEmployees()
+			setEmployees(() => setEmployees(employeesList))
+		}
+		anonFunc()
+	}, [])
+
+	useEffect(() => {
+		async function anonFunc() {
+			const employeesList = await API.searchEmployees(search)
+			setEmployees(() => setEmployees(employeesList))
+		}
+		anonFunc()
+	}, [search])
+
+	useEffect(() => {
+		const sortParams = sort.split('-')
+		let employeesList = Employee.sortEmployees(
+			employees,
+			sortParams[0],
+			sortParams[1]
+		)
+		setEmployees(() => setEmployees(employeesList))
+	}, [sort]) // throws a warning, however can't add employees to dependency list
+
+	const searchEmployees = (query) => {
+		setSearch(() => setSearch(query))
+		setSort(() => setSort(sort))
+	}
+
+	const sortEmployees = (sort) => {
+		setSort(() => setSort(sort))
+	}
+
+	const createEmployee = (object) => {
+		// const id = rows[rows.length - 1]['id'] + 1
+		const id = employees[employees.length - 1]['id'] + 1
+		object['id'] = id
+		API.createEmployee(object).then((res) => console.log(res))
+		console.log(object)
+		const newEmployee = EmployeeFactory(object)
+		// setRows([...rows, newEmployee])
+		setEmployees([...employees, newEmployee])
+	}
+
 	const handleEdit = (key) => {
 		alert('edit')
 		console.log(
 			`edit pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
 				page * rowsPerPage + key
-			}, employee:${Object.keys(rows[page * rowsPerPage + key])}, id:${
-				rows[page * rowsPerPage + key]['id']
+			}, employee:${Object.keys(employees[page * rowsPerPage + key])}, id:${
+				employees[page * rowsPerPage + key]['id']
 			}, first_name:${
-				rows[page * rowsPerPage + key]['first_name']
-			}, last_name:${rows[page * rowsPerPage + key]['last_name']}, email:${
-				rows[page * rowsPerPage + key]['email']
-			}, gender:${rows[page * rowsPerPage + key]['gender']}, salary:${
-				rows[page * rowsPerPage + key]['salary']
-			}, job_title:${rows[page * rowsPerPage + key]['job_title']}
+				employees[page * rowsPerPage + key]['first_name']
+			}, last_name:${employees[page * rowsPerPage + key]['last_name']}, email:${
+				employees[page * rowsPerPage + key]['email']
+			}, gender:${employees[page * rowsPerPage + key]['gender']}, salary:${
+				employees[page * rowsPerPage + key]['salary']
+			}, job_title:${employees[page * rowsPerPage + key]['job_title']}
 			`
 		)
 	}
 
 	const handleDelete = (key) => {
 		alert('delete')
-		const object = rows[page * rowsPerPage + key]
+		const object = employees[page * rowsPerPage + key]
 		console.log(
 			`delete pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
 				page * rowsPerPage + key
@@ -159,80 +217,117 @@ const CustomPaginationActionsTable = (props) => {
 			salary: object['salary'],
 			job_title: object['job_title'],
 		}
-		API.deleteEmployee(newEmployee)
+		// setRows(employees.filter((employee) => employee.id !== object['id']))
+		setEmployees(employees.filter((employee) => employee.id !== object['id']))
+		API.deleteEmployee(newEmployee).then((res) => console.log(res))
 	}
 
+	// useEffect(() => {
+	// 	setRows(props.rows)
+	// }, [props.rows])
+
+	useEffect(() => {
+		setRows(employees)
+	}, [employees])
+
+	// useEffect(() => {}, [rows])
+	useEffect(() => {}, [employees])
+
 	return (
-		<TableContainer component={Paper}>
-			<Table className={classes.table} aria-label='custom pagination table'>
-				<TableHead>
-					<TableRow>
-						{props.columns.map((object, key) => (
-							<TableCell key={key} style={{ width: object.width }}>
-								{object.name}
-							</TableCell>
-						))}
-						<TableCell style={{ width: 31 }}></TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{(rowsPerPage > 0
-						? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						: rows
-					).map((row, key) => (
-						<TableRow key={key}>
-							{props.columns.map((object) => (
-								<TableCell
-									key={`${key}${object.value}`}
-									style={{ width: object.width }}
-									scope='row'>
-									{row[object.value]}
+		<>
+			<NavBar
+				search={searchEmployees}
+				sort={sortEmployees}
+				sortState={sort}
+				sortOptions={employeeSortOptions}></NavBar>
+			<TableContainer component={Paper}>
+				<Table className={classes.table} aria-label='custom pagination table'>
+					<TableHead>
+						<TableRow>
+							{/* {props.columns.map((object, key) => ( */}
+							{columns.map((object, key) => (
+								<TableCell key={key} style={{ width: object.width }}>
+									{object.name}
 								</TableCell>
 							))}
-							<TableCell>
-								<IconButton
-									onClick={() => handleEdit(key)}
-									aria-label='edit'
-									className={classes.margin}
-									size='small'>
-									<EditIcon fontSize='inherit' />
-								</IconButton>
-								<IconButton
-									onClick={() => handleDelete(key)}
-									aria-label='delete'
-									className={classes.margin}
-									size='small'>
-									<DeleteIcon fontSize='inherit' />
-								</IconButton>
-							</TableCell>
+							<TableCell style={{ width: 31 }}></TableCell>
 						</TableRow>
-					))}
-					{emptyRows > 0 && (
-						<TableRow style={{ height: 53 * emptyRows }}>
-							<TableCell colSpan={9} />
+					</TableHead>
+					<TableBody>
+						{(rowsPerPage > 0
+							? // ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+							  // : rows
+							  employees.slice(
+									page * rowsPerPage,
+									page * rowsPerPage + rowsPerPage
+							  )
+							: employees
+						).map((row, key) => (
+							<TableRow key={key}>
+								{/* {props.columns.map((object) => ( */}
+								{columns.map((object) => (
+									<TableCell
+										key={`${key}${object.value}`}
+										style={{ width: object.width }}
+										scope='row'>
+										{row[object.value]}
+									</TableCell>
+								))}
+								<TableCell>
+									<IconButton
+										onClick={() => handleEdit(key)}
+										aria-label='edit'
+										className={classes.margin}
+										size='small'>
+										<EditIcon fontSize='inherit' />
+									</IconButton>
+									<IconButton
+										onClick={() => handleDelete(key)}
+										aria-label='delete'
+										className={classes.margin}
+										size='small'>
+										<DeleteIcon fontSize='inherit' />
+									</IconButton>
+								</TableCell>
+							</TableRow>
+						))}
+						{emptyRows > 0 && (
+							<TableRow style={{ height: 53 * emptyRows }}>
+								<TableCell colSpan={9} />
+							</TableRow>
+						)}
+					</TableBody>
+					<TableFooter>
+						<TableRow>
+							<TablePagination
+								rowsPerPageOptions={[
+									5,
+									10,
+									25,
+									100,
+									{ label: 'All', value: -1 },
+								]}
+								colSpan={7}
+								// count={rows.length}
+								count={employees.length}
+								rowsPerPage={rowsPerPage}
+								page={page}
+								SelectProps={{
+									inputProps: { 'aria-label': 'rows per page' },
+									native: true,
+								}}
+								onPageChange={handleChangePage}
+								onRowsPerPageChange={handleChangeRowsPerPage}
+								ActionsComponent={TablePaginationActions}
+							/>
 						</TableRow>
-					)}
-				</TableBody>
-				<TableFooter>
-					<TableRow>
-						<TablePagination
-							rowsPerPageOptions={[5, 10, 25, 100, { label: 'All', value: -1 }]}
-							colSpan={7}
-							count={rows.length}
-							rowsPerPage={rowsPerPage}
-							page={page}
-							SelectProps={{
-								inputProps: { 'aria-label': 'rows per page' },
-								native: true,
-							}}
-							onPageChange={handleChangePage}
-							onRowsPerPageChange={handleChangeRowsPerPage}
-							ActionsComponent={TablePaginationActions}
-						/>
-					</TableRow>
-				</TableFooter>
-			</Table>
-		</TableContainer>
+					</TableFooter>
+				</Table>
+			</TableContainer>
+			<CreateForm
+				create={createEmployee}
+				genders={Employee.employeeGenders()}></CreateForm>
+		</>
 	)
 }
 
