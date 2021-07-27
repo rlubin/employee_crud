@@ -21,6 +21,7 @@ import API from '../resources/API'
 import Employee from './Employee'
 import EmployeeFactory from './EmployeeFactory'
 import EmployeeTableOptionBar from './EmployeeTableOptionBar'
+import EditEmployeeForm from './EditEmployeeForm'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {
@@ -263,13 +264,18 @@ const CustomPaginationActionsTable = (props) => {
 									</TableCell>
 								))}
 								<TableCell>
-									<IconButton
+									{/* <IconButton
 										onClick={() => handleEdit(key)}
 										aria-label='edit'
 										className={classes.margin}
 										size='small'>
 										<EditIcon fontSize='inherit' />
-									</IconButton>
+									</IconButton> */}
+									<EditEmployeeForm
+										create={function () {
+											console.log('create')
+										}}
+										genders={Employee.employeeGenders()}></EditEmployeeForm>
 									<IconButton
 										onClick={() => handleDelete(key)}
 										aria-label='delete'

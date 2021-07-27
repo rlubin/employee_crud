@@ -1,19 +1,16 @@
--READEME
+READEME
 --add screenshots
 
--comment the code purpose, inputs, outputs
--use oop
+FUNCTIONALITY
 -add testing 100% code coverage
-
--change everything to camel changes
--put all exports at the bottom
--all arrow functions
--remove stupid id's and labels from example components
 
 -add routes to server so that /employees can be a separate file and a little more comphrensive
 -add a basic login authentication path
 -add database for logging in
 
+adjust styling on components
+
+SECURITY
 -sanitize user input
 --remove special characters
 -sanitize and validiate user input on form and search
@@ -21,17 +18,10 @@
 
 -client and server side validation?
 
-BUG
+BUGS
 -initial get request on load
 -second post request on searching being empty
 -comment out on load useEffect for now
 
-add logic that changes the page number down one if you delete and you're past the correct number of pages
-
 row height gets warped when edit and delete go one over the other
-
-adjust styling on components
-
-go over all functionality and verify that it is working correctly, if not then correct it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 columns change width depending on page (size of data fields), PROBLEM, should be static
