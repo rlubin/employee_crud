@@ -26,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
 const FormDialog = (props) => {
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
-	const [first_name, setFirstName] = useState('')
-	const [last_name, setLastName] = useState('')
-	const [email, setEmail] = useState('')
-	const [gender, setGender] = useState(props.genders[0])
-	const [salary, setSalary] = useState('')
-	const [job_title, setJobTitle] = useState('')
+	const employee = props.employee
+	const [first_name, setFirstName] = useState(employee['first_name'])
+	const [last_name, setLastName] = useState(employee['last_name'])
+	const [email, setEmail] = useState(employee['email'])
+	const [gender, setGender] = useState(employee['gender'])
+	const [salary, setSalary] = useState(employee['salary'])
+	const [job_title, setJobTitle] = useState(employee['job_title'])
 	const [first_nameError, setFirstNameError] = useState(false)
 	const [last_nameError, setLastNameError] = useState(false)
 	const [emailError, setEmailError] = useState(false)
@@ -43,6 +44,12 @@ const FormDialog = (props) => {
 
 	const handleClickOpen = () => {
 		setOpen(true)
+		setFirstName(employee['first_name'])
+		setLastName(employee['last_name'])
+		setEmail(employee['email'])
+		setGender(employee['gender'])
+		setSalary(employee['salary'])
+		setJobTitle(employee['job_title'])
 		setFirstNameError(false)
 		setFirstNameHelperText(null)
 		setLastNameError(false)
@@ -125,9 +132,8 @@ const FormDialog = (props) => {
 	const sanitizeForm = () => {}
 
 	const handleSubmit = () => {
-		// BUG WHERE EMPLOYEE ADDS AGAIN AFTER 2M AFTER CREATING ONE THEN FETCH FAILS
 		if (isFormValid()) {
-			alert('employee added')
+			alert('employee editted')
 		} else {
 			return
 		}
@@ -141,7 +147,8 @@ const FormDialog = (props) => {
 			salary: salary,
 			job_title: job_title,
 		}
-		props.create(newEmployee)
+		// props.edit(newEmployee)
+		props.edit(props.employeeIndex, newEmployee)
 		setOpen(false)
 	}
 
@@ -155,9 +162,10 @@ const FormDialog = (props) => {
 				<EditIcon fontSize='inherit' />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Create</DialogTitle>
+				<DialogTitle>Edit</DialogTitle>
 				<DialogContent>
 					<TextField
+						value={first_name}
 						autoFocus
 						onChange={handleFirstNameChange}
 						label='First Name'
@@ -168,6 +176,7 @@ const FormDialog = (props) => {
 						helperText={first_nameHelperText}
 					/>
 					<TextField
+						value={last_name}
 						onChange={handleLastNameChange}
 						label='Last Name'
 						required
@@ -177,6 +186,7 @@ const FormDialog = (props) => {
 						helperText={last_nameHelperText}
 					/>
 					<TextField
+						value={email}
 						onChange={handleEmailChange}
 						label='Email'
 						fullWidth
@@ -198,6 +208,7 @@ const FormDialog = (props) => {
 						))}
 					</Select>
 					<TextField
+						value={salary}
 						onChange={handleSalaryChange}
 						fullWidth
 						label='Salary'
@@ -207,6 +218,7 @@ const FormDialog = (props) => {
 						helperText={salaryHelperText}
 					/>
 					<TextField
+						value={job_title}
 						onChange={handleJobTitleChange}
 						label='Job Title'
 						fullWidth
@@ -219,7 +231,7 @@ const FormDialog = (props) => {
 						Cancel
 					</Button>
 					<Button onClick={handleSubmit} color='primary'>
-						Create
+						Edit
 					</Button>
 				</DialogActions>
 			</Dialog>

@@ -76,18 +76,31 @@ app.post('/employee-create', (req, res) => {
 	)
 })
 
-// app.post('/employee-update', (req, res) => {
-// 	console.log(`POST /employees-update ${Date()}`)
-// 	console.log(req.body)
-// 	const employee = req.body.employee
-// 	connection.query(
-// 		`UPDATE FROM employees WHERE id='%${query}%'`,
-// 		(error, results, fields) => {
-// 			if (error) console.log(error)
-// 			res.json({ employees: results })
-// 		}
-// 	)
-// })
+app.post('/employee-update', (req, res) => {
+	console.log(`POST /employees-update ${Date()}`)
+	console.log(req.body)
+	const employee = req.body.employee
+	connection.query(
+		`UPDATE employees SET id=?, first_name=?, last_name=?, email=?, salary=?, job_title=? WHERE id=?`,
+		[
+			employee['id'],
+			employee['first_name'],
+			employee['last_name'],
+			employee['email'],
+			employee['salary'],
+			employee['job_title'],
+			employee['id'],
+		],
+		(error, results, fields) => {
+			if (error) {
+				console.log(error)
+				res.json({ result: 'fail' })
+			}
+			console.log('employee edited')
+			res.json({ result: 'success' })
+		}
+	)
+})
 
 app.post('/employee-delete', (req, res) => {
 	console.log(`POST /employees-delete ${Date()}`)

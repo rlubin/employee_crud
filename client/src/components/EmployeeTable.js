@@ -15,7 +15,6 @@ import FirstPageIcon from '@material-ui/icons/FirstPage'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
-import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import API from '../resources/API'
 import Employee from './Employee'
@@ -189,22 +188,30 @@ const CustomPaginationActionsTable = (props) => {
 		setEmployees([...employees, newEmployee])
 	}
 
-	const handleEdit = (key) => {
+	const handleEdit = (index, employee) => {
 		alert('edit')
-		console.log(
-			`edit pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
-				page * rowsPerPage + key
-			}, employee:${Object.keys(employees[page * rowsPerPage + key])}, id:${
-				employees[page * rowsPerPage + key]['id']
-			}, first_name:${
-				employees[page * rowsPerPage + key]['first_name']
-			}, last_name:${employees[page * rowsPerPage + key]['last_name']}, email:${
-				employees[page * rowsPerPage + key]['email']
-			}, gender:${employees[page * rowsPerPage + key]['gender']}, salary:${
-				employees[page * rowsPerPage + key]['salary']
-			}, job_title:${employees[page * rowsPerPage + key]['job_title']}
-			`
-		)
+		console.log(index, employee)
+		console.log(employees[index])
+		// console.log(
+		// 	`edit pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
+		// 		page * rowsPerPage + key
+		// 	}, employee:${Object.keys(employees[page * rowsPerPage + key])}, id:${
+		// 		employees[page * rowsPerPage + key]['id']
+		// 	}, first_name:${
+		// 		employees[page * rowsPerPage + key]['first_name']
+		// 	}, last_name:${employees[page * rowsPerPage + key]['last_name']}, email:${
+		// 		employees[page * rowsPerPage + key]['email']
+		// 	}, gender:${employees[page * rowsPerPage + key]['gender']}, salary:${
+		// 		employees[page * rowsPerPage + key]['salary']
+		// 	}, job_title:${employees[page * rowsPerPage + key]['job_title']}
+		// 	`
+		// )
+		// update employee in database
+		API.updateEmployee(employee).then((res) => console.log(res))
+		// update employee in employees
+		console.log(employees)
+		console.log(employees.splice(index, 1, employee))
+		setEmployees(employees)
 	}
 
 	const handleDelete = (key) => {
@@ -264,17 +271,10 @@ const CustomPaginationActionsTable = (props) => {
 									</TableCell>
 								))}
 								<TableCell>
-									{/* <IconButton
-										onClick={() => handleEdit(key)}
-										aria-label='edit'
-										className={classes.margin}
-										size='small'>
-										<EditIcon fontSize='inherit' />
-									</IconButton> */}
 									<EditEmployeeForm
-										create={function () {
-											console.log('create')
-										}}
+										edit={handleEdit}
+										employeeIndex={page * rowsPerPage + key}
+										employee={employees[page * rowsPerPage + key]}
 										genders={Employee.employeeGenders()}></EditEmployeeForm>
 									<IconButton
 										onClick={() => handleDelete(key)}
