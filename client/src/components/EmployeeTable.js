@@ -183,7 +183,6 @@ const CustomPaginationActionsTable = (props) => {
 		const id = employees[employees.length - 1]['id'] + 1
 		object['id'] = id
 		API.createEmployee(object).then((res) => console.log(res))
-		console.log(object)
 		const newEmployee = EmployeeFactory(object)
 		setEmployees([...employees, newEmployee])
 	}
@@ -191,27 +190,14 @@ const CustomPaginationActionsTable = (props) => {
 	const handleEdit = (index, employee) => {
 		alert('edit')
 		console.log(index, employee)
-		console.log(employees[index])
-		// console.log(
-		// 	`edit pageSize:${rowsPerPage}, page:${page}, key:${key}, row:${
-		// 		page * rowsPerPage + key
-		// 	}, employee:${Object.keys(employees[page * rowsPerPage + key])}, id:${
-		// 		employees[page * rowsPerPage + key]['id']
-		// 	}, first_name:${
-		// 		employees[page * rowsPerPage + key]['first_name']
-		// 	}, last_name:${employees[page * rowsPerPage + key]['last_name']}, email:${
-		// 		employees[page * rowsPerPage + key]['email']
-		// 	}, gender:${employees[page * rowsPerPage + key]['gender']}, salary:${
-		// 		employees[page * rowsPerPage + key]['salary']
-		// 	}, job_title:${employees[page * rowsPerPage + key]['job_title']}
-		// 	`
-		// )
+		// update employee in employees
+		const newEmployees = [...employees]
+		const id = newEmployees[index]['id']
+		newEmployees[index] = employee
+		newEmployees[index]['id'] = id
+		setEmployees(newEmployees)
 		// update employee in database
 		API.updateEmployee(employee).then((res) => console.log(res))
-		// update employee in employees
-		console.log(employees)
-		console.log(employees.splice(index, 1, employee))
-		setEmployees(employees)
 	}
 
 	const handleDelete = (key) => {
