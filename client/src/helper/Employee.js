@@ -9,6 +9,72 @@ class Employee {
 		this.job_title = job_title
 	}
 
+	// constructor(id, first_name, last_name, email, gender, salary, job_title) {
+	// 	this._id = id
+	// 	this._first_name = first_name
+	// 	this._last_name = last_name
+	// 	this._email = email
+	// 	this._gender = gender
+	// 	this._salary = salary
+	// 	this._job_title = job_title
+	// }
+
+	// get id() {
+	// 	return this._id
+	// }
+
+	// get first_name() {
+	// 	return this._first_name
+	// }
+
+	// get last_name() {
+	// 	return this._last_name
+	// }
+
+	// get email() {
+	// 	return this._email
+	// }
+
+	// get gender() {
+	// 	return this._gender
+	// }
+
+	// get salary() {
+	// 	return this._salary
+	// }
+
+	// get job_title() {
+	// 	return this._job_title
+	// }
+
+	// set id(value) {
+	// 	return this._id
+	// }
+
+	// set first_name(value) {
+	// 	this._first_name = value
+	// }
+
+	// set last_name(value) {
+	// 	this._last_name = value
+	// }
+
+	// set email(value) {
+	// 	this._email = value
+	// }
+
+	// set gender(value) {
+	// 	this._gender = value
+	// }
+
+	// set salary(value) {
+	// 	this._salary = value
+	// }
+
+	// set job_title(value) {
+	// 	this._job_title = value
+	// }
+
 	static employeeGenders = () => {
 		return [
 			'Male',

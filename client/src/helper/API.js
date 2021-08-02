@@ -1,4 +1,4 @@
-import EmployeeFactory from '../components/EmployeeFactory'
+import EmployeeFactory from './EmployeeFactory'
 
 class API {
 	static getEmployees = () => {
@@ -35,8 +35,8 @@ class API {
 			})
 	}
 
-	static createEmployee = (employee) => {
-		const Employee = new EmployeeFactory(employee)
+	static createEmployee = (Employee) => {
+		// const Employee = new EmployeeFactory(employee)
 		return fetch('/employee-create', {
 			method: 'POST',
 			body: JSON.stringify({ employee: Employee }),

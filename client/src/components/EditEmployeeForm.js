@@ -11,6 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
+import FormValidation from '../helper/FormValidation'
+import Employee from '../helper/Employee'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,12 +28,12 @@ const FormDialog = (props) => {
 	const classes = useStyles()
 	const [open, setOpen] = useState(false)
 	const employee = props.employee
-	const [first_name, setFirstName] = useState(employee['first_name'])
-	const [last_name, setLastName] = useState(employee['last_name'])
-	const [email, setEmail] = useState(employee['email'])
-	const [gender, setGender] = useState(employee['gender'])
-	const [salary, setSalary] = useState(employee['salary'])
-	const [job_title, setJobTitle] = useState(employee['job_title'])
+	const [first_name, setFirstName] = useState(employee.first_name)
+	const [last_name, setLastName] = useState(employee.last_name)
+	const [email, setEmail] = useState(employee.email)
+	const [gender, setGender] = useState(employee.gender)
+	const [salary, setSalary] = useState(employee.salary)
+	const [job_title, setJobTitle] = useState(employee.job_title)
 	const [first_nameError, setFirstNameError] = useState(false)
 	const [last_nameError, setLastNameError] = useState(false)
 	const [emailError, setEmailError] = useState(false)
@@ -43,12 +45,12 @@ const FormDialog = (props) => {
 
 	const handleClickOpen = () => {
 		setOpen(true)
-		setFirstName(employee['first_name'])
-		setLastName(employee['last_name'])
-		setEmail(employee['email'])
-		setGender(employee['gender'])
-		setSalary(employee['salary'])
-		setJobTitle(employee['job_title'])
+		setFirstName(employee.first_name)
+		setLastName(employee.last_name)
+		setEmail(employee.email)
+		setGender(employee.gender)
+		setSalary(employee.salary)
+		setJobTitle(employee.job_title)
 		setFirstNameError(false)
 		setFirstNameHelperText(null)
 		setLastNameError(false)
@@ -95,17 +97,13 @@ const FormDialog = (props) => {
 		setJobTitle(event.target.value)
 	}
 
-	const validateEmail = (string) => {
-		const re = /^\S+@\S+\.\S+$/
-		return re.test(String(string).toLowerCase())
-	}
-
 	const isFormValid = () => {
-		let errors = []
-		if (first_name === '') errors.push('first_nameError')
-		if (last_name === '') errors.push('last_nameError')
-		if (email === '' || !validateEmail(email)) errors.push('emailError')
-		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError')
+		let errors = FormValidation.validateEmployeeInput(
+			first_name,
+			last_name,
+			email,
+			salary
+		)
 		for (let error of errors) {
 			if (error === 'first_nameError') {
 				setFirstNameError(true)
@@ -134,15 +132,15 @@ const FormDialog = (props) => {
 		} else {
 			return
 		}
-		const newEmployee = {
-			id: '1',
-			first_name: first_name,
-			last_name: last_name,
-			email: email,
-			gender: gender,
-			salary: salary,
-			job_title: job_title,
-		}
+		const newEmployee = new Employee(
+			'1',
+			first_name,
+			last_name,
+			email,
+			gender,
+			salary,
+			job_title
+		)
 		// props.edit(newEmployee)
 		props.edit(props.employeeIndex, newEmployee)
 		setOpen(false)

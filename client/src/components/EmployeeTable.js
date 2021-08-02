@@ -16,9 +16,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import LastPageIcon from '@material-ui/icons/LastPage'
 import DeleteIcon from '@material-ui/icons/Delete'
-import API from '../resources/API'
-import Employee from './Employee'
-import EmployeeFactory from './EmployeeFactory'
+import API from '../helper/API'
+import Employee from '../helper/Employee'
 import EmployeeTableOptionBar from './EmployeeTableOptionBar'
 import EditEmployeeForm from './EditEmployeeForm'
 
@@ -95,14 +94,7 @@ TablePaginationActions.propTypes = {
 	rowsPerPage: PropTypes.number.isRequired,
 }
 
-const useStyles2 = makeStyles({
-	table: {
-		minWidth: 350,
-	},
-})
-
 const CustomPaginationActionsTable = (props) => {
-	const classes = useStyles2()
 	const [employees, setEmployees] = useState([])
 	const employeeTableColumns = Employee.employeeTableColumns()
 	const employeeSortOptions = Employee.employeeSortOptions()
@@ -125,21 +117,19 @@ const CustomPaginationActionsTable = (props) => {
 		setPage(0)
 	}
 
-	useEffect(() => {
-		console.log('first load')
-		async function anonFunc() {
-			const employeesList = await API.getEmployees()
-			setEmployees(() => setEmployees(employeesList))
-		}
-		anonFunc()
-	}, [])
+	// useEffect(() => {
+	// 	async function anonFunc() {
+	// 		const employeesList = await API.getEmployees()
+	// 		setEmployees(() => setEmployees(employeesList))
+	// 	}
+	// 	anonFunc()
+	// }, [])
 
 	useEffect(() => {
 		setEmployees(() => setEmployees(employees))
 	}, [employees])
 
 	useEffect(() => {
-		console.log('search')
 		async function anonFunc() {
 			const employeesList = await API.searchEmployees(search)
 			setEmployees(() => setEmployees(employeesList))
@@ -167,42 +157,32 @@ const CustomPaginationActionsTable = (props) => {
 		setSort(() => setSort(sort))
 	}
 
-	const createEmployee = (object) => {
-		const id = employees[employees.length - 1]['id'] + 1
-		object['id'] = id
-		API.createEmployee(object).then((res) => console.log(res))
-		const newEmployee = EmployeeFactory(object)
-		setEmployees([...employees, newEmployee])
+	const handleCreate = (employeeToCreate) => {
+		employeeToCreate.id = employees[employees.length - 1].id + 1
+		API.createEmployee(employeeToCreate)
+		setEmployees([...employees, employeeToCreate])
 	}
 
-	const handleEdit = (index, employee) => {
-		alert('edit')
-		console.log(index, employee)
+	const handleEdit = (index, employeeToEdit) => {
 		const newEmployees = [...employees]
-		const id = newEmployees[index]['id']
-		newEmployees[index] = employee
-		newEmployees[index]['id'] = id
+		const id = newEmployees[index].id
+		newEmployees[index] = employeeToEdit
+		newEmployees[index].id = id
 		setEmployees(newEmployees)
-		API.updateEmployee(employee).then((res) => console.log(res))
+		API.updateEmployee(employeeToEdit)
 	}
 
 	const handleDelete = (key) => {
-		alert('delete')
-		const object = employees[page * rowsPerPage + key]
-		const newEmployee = {
-			id: object['id'],
-			first_name: object['first_name'],
-			last_name: object['last_name'],
-			email: object['email'],
-			gender: object['gender'],
-			salary: object['salary'],
-			job_title: object['job_title'],
-		}
+		const emplpoyeeToDel = employees[page * rowsPerPage + key]
 		const length = employees.length - 2
-		setEmployees(employees.filter((employee) => employee.id !== object['id']))
-		API.deleteEmployee(newEmployee).then((res) => console.log(res))
+		setEmployees(
+			employees.filter((employee) => employee.id !== emplpoyeeToDel.id)
+		)
+		API.deleteEmployee(emplpoyeeToDel)
+		// if delete last employee on a table page move to new last page
 		const maxPageNumber = Math.floor(length / rowsPerPage)
 		if (page > maxPageNumber) setPage(page - 1)
+		alert('employee deleted')
 	}
 
 	return (
@@ -213,9 +193,9 @@ const CustomPaginationActionsTable = (props) => {
 					sort={sortEmployees}
 					sortState={sort}
 					sortOptions={employeeSortOptions}
-					create={createEmployee}
+					create={handleCreate}
 					genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
-				<Table className={classes.table} aria-label='custom pagination table'>
+				<Table aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>
 							{columns.map((object, key) => (

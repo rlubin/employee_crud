@@ -21,13 +21,13 @@ connection.connect((error) => {
 
 app.use(express.json()) // for parsing application/json
 
-app.get('/employees', (req, res) => {
-	console.log(`GET /employees ${Date()}`)
-	connection.query('SELECT * FROM employees', (error, results, fields) => {
-		if (error) console.log(error)
-		res.json({ employees: results })
-	})
-})
+// app.get('/employees', (req, res) => {
+// 	console.log(`GET /employees ${Date()}`)
+// 	connection.query('SELECT * FROM employees', (error, results, fields) => {
+// 		if (error) console.log(error)
+// 		res.json({ employees: results })
+// 	})
+// })
 
 app.post('/employees', (req, res) => {
 	console.log(`POST /employees ${Date()}`)

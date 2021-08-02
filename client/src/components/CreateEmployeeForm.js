@@ -9,6 +9,8 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
+import FormValidation from '../helper/FormValidation'
+import Employee from '../helper/Employee'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -87,17 +89,13 @@ const FormDialog = (props) => {
 		setJobTitle(event.target.value)
 	}
 
-	const validateEmail = (string) => {
-		const re = /^\S+@\S+\.\S+$/
-		return re.test(String(string).toLowerCase())
-	}
-
 	const isFormValid = () => {
-		let errors = []
-		if (first_name === '') errors.push('first_nameError')
-		if (last_name === '') errors.push('last_nameError')
-		if (email === '' || !validateEmail(email)) errors.push('emailError')
-		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError')
+		let errors = FormValidation.validateEmployeeInput(
+			first_name,
+			last_name,
+			email,
+			salary
+		)
 		for (let error of errors) {
 			if (error === 'first_nameError') {
 				setFirstNameError(true)
@@ -126,15 +124,15 @@ const FormDialog = (props) => {
 		} else {
 			return
 		}
-		const newEmployee = {
-			id: '1',
-			first_name: first_name,
-			last_name: last_name,
-			email: email,
-			gender: gender,
-			salary: salary,
-			job_title: job_title,
-		}
+		const newEmployee = new Employee(
+			'1',
+			first_name,
+			last_name,
+			email,
+			gender,
+			salary,
+			job_title
+		)
 		props.create(newEmployee)
 		setOpen(false)
 	}
