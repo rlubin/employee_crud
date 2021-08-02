@@ -4,19 +4,15 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import SearchIcon from '@material-ui/icons/Search'
-import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > *': {
-			// margin: theme.spacing(1),
-			width: '50ch',
-			verticalAlign: 'middle',
-		},
+	textField: {
+		margin: theme.spacing(1),
+		minWidth: '17.5ch',
 	},
 	button: {
-		// margin: theme.spacing(1),
-		width: '15ch',
+		margin: theme.spacing(1),
 	},
 }))
 
@@ -24,25 +20,17 @@ const SearchBar = (props) => {
 	const classes = useStyles()
 	const [search, setSearch] = useState('')
 
-	const sanitizeInput = (search) => {
-		return search
-	}
-
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		console.log(event)
-		const sanitized = sanitizeInput(search)
 		props.search(search)
 	}
 
 	return (
-		<form
-			className={classes.root}
-			noValidate
-			autoComplete='off'
-			onSubmit={handleSubmit}>
-			<Box alignItems='center' display='flex' justifyContent='center'>
+		<Grid container>
+			<form noValidate autoComplete='off' onSubmit={handleSubmit}>
 				<TextField
+					className={classes.textField}
 					label='Search'
 					InputProps={{
 						startAdornment: (
@@ -63,8 +51,8 @@ const SearchBar = (props) => {
 					size='large'>
 					Search
 				</Button>
-			</Box>
-		</form>
+			</form>
+		</Grid>
 	)
 }
 

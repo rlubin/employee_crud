@@ -14,7 +14,6 @@ import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		// margin: theme.spacing(1),
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
@@ -105,8 +104,8 @@ const FormDialog = (props) => {
 		let errors = []
 		if (first_name === '') errors.push('first_nameError')
 		if (last_name === '') errors.push('last_nameError')
-		if (email === '' || !validateEmail(email)) errors.push('emailError') // check if valid email
-		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError') // check salary must be greater than or equal to 0
+		if (email === '' || !validateEmail(email)) errors.push('emailError')
+		if (Number(salary) < 0 || isNaN(Number(salary))) errors.push('salaryError')
 		for (let error of errors) {
 			if (error === 'first_nameError') {
 				setFirstNameError(true)
@@ -129,15 +128,12 @@ const FormDialog = (props) => {
 		return false
 	}
 
-	const sanitizeForm = () => {}
-
 	const handleSubmit = () => {
 		if (isFormValid()) {
 			alert('employee editted')
 		} else {
 			return
 		}
-		sanitizeForm()
 		const newEmployee = {
 			id: '1',
 			first_name: first_name,
@@ -154,11 +150,7 @@ const FormDialog = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<IconButton
-				onClick={handleClickOpen}
-				aria-label='edit'
-				className={classes.margin}
-				size='small'>
+			<IconButton onClick={handleClickOpen} aria-label='edit' size='small'>
 				<EditIcon fontSize='inherit' />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>

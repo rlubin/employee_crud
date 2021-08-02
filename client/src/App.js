@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box'
 const App = () => {
 	return (
 		<>
-			<Box m={1}>
+			<Box display='flex' m={1}>
 				<EmployeeTable></EmployeeTable>
 			</Box>
 		</>

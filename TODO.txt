@@ -1,29 +1,23 @@
 READEME
---add screenshots
+-add screenshots
 
-FUNCTIONALITY
--add testing 100% code coverage
+TESTING
+-add testing code, goal is 100% code coverage
 
--add routes to server so that /employees can be a separate file and a little more comphrensive
--add a basic login authentication path
--add database for logging in
+ORGANIZATION
+-go over all files and makes sure functions are logically where they should be
+-keep relevant functionality in relevant files
 
-adjust styling on components
+REACT
+-row height gets warped when edit and delete go one over the other
+-columns change width depending on page (size of data fields), PROBLEM, should be static
 
-SECURITY
--sanitize user input
---remove special characters
--sanitize and validiate user input on form and search
+SECURITY (done)
+-only need to worry about SQL injection
 -for sql queries in server using parameter binding
-
--client and server side validation?
+-XSS could be an issue
+-data will be displayed in the table, but react automatically escapes HTML
 
 BUGS
 -initial get request on load
 -second post request on searching being empty
--comment out on load useEffect for now
-
-row height gets warped when edit and delete go one over the other
-columns change width depending on page (size of data fields), PROBLEM, should be static
-
-BROKE SEARCH???? (just for a momeny????)

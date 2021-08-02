@@ -27,9 +27,6 @@ const useStyles1 = makeStyles((theme) => ({
 		flexShrink: 0,
 		marginLeft: theme.spacing(2.5),
 	},
-	margin: {
-		margin: theme.spacing(1),
-	},
 }))
 
 const TablePaginationActions = (props) => {
@@ -100,7 +97,7 @@ TablePaginationActions.propTypes = {
 
 const useStyles2 = makeStyles({
 	table: {
-		minWidth: 875,
+		minWidth: 350,
 	},
 })
 
@@ -114,15 +111,10 @@ const CustomPaginationActionsTable = (props) => {
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(5)
 	const columns = employeeTableColumns
-	// const rows = employees
 	const rows = employees === undefined ? [] : employees
-
-	if (rows === undefined) console.log('employees undefined')
-	// console.log(rows.length)
 
 	const emptyRows =
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
-	// rowsPerPage - Math.min(rowsPerPage, employees.length - page * rowsPerPage)
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage)
@@ -144,11 +136,7 @@ const CustomPaginationActionsTable = (props) => {
 
 	useEffect(() => {
 		setEmployees(() => setEmployees(employees))
-		// const maxPageNumber = Math.floor(employees.length / rowsPerPage)
-		// if (page > maxPageNumber) setPage(page - 1)
 	}, [employees])
-
-	// useEffect(() => {}, [employees])
 
 	useEffect(() => {
 		console.log('search')
@@ -190,13 +178,11 @@ const CustomPaginationActionsTable = (props) => {
 	const handleEdit = (index, employee) => {
 		alert('edit')
 		console.log(index, employee)
-		// update employee in employees
 		const newEmployees = [...employees]
 		const id = newEmployees[index]['id']
 		newEmployees[index] = employee
 		newEmployees[index]['id'] = id
 		setEmployees(newEmployees)
-		// update employee in database
 		API.updateEmployee(employee).then((res) => console.log(res))
 	}
 
@@ -215,7 +201,6 @@ const CustomPaginationActionsTable = (props) => {
 		const length = employees.length - 2
 		setEmployees(employees.filter((employee) => employee.id !== object['id']))
 		API.deleteEmployee(newEmployee).then((res) => console.log(res))
-		// add logic that changes the page number down one if you delete and you're past the correct number of pages
 		const maxPageNumber = Math.floor(length / rowsPerPage)
 		if (page > maxPageNumber) setPage(page - 1)
 	}
@@ -230,7 +215,6 @@ const CustomPaginationActionsTable = (props) => {
 					sortOptions={employeeSortOptions}
 					create={createEmployee}
 					genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
-				{/* <TableContainer component={Paper}> */}
 				<Table className={classes.table} aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>
@@ -239,7 +223,8 @@ const CustomPaginationActionsTable = (props) => {
 									{object.name}
 								</TableCell>
 							))}
-							<TableCell style={{ width: 31 }}></TableCell>
+							<TableCell style={{ width: 2 }}></TableCell>
+							<TableCell style={{ width: 2 }}></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -262,10 +247,11 @@ const CustomPaginationActionsTable = (props) => {
 										employeeIndex={page * rowsPerPage + key}
 										employee={employees[page * rowsPerPage + key]}
 										genders={Employee.employeeGenders()}></EditEmployeeForm>
+								</TableCell>
+								<TableCell>
 									<IconButton
 										onClick={() => handleDelete(key)}
 										aria-label='delete'
-										className={classes.margin}
 										size='small'>
 										<DeleteIcon fontSize='inherit' />
 									</IconButton>
@@ -274,7 +260,7 @@ const CustomPaginationActionsTable = (props) => {
 						))}
 						{emptyRows > 0 && (
 							<TableRow style={{ height: 53 * emptyRows }}>
-								<TableCell colSpan={9} />
+								<TableCell colSpan={columns.length + 2} />
 							</TableRow>
 						)}
 					</TableBody>
@@ -288,7 +274,7 @@ const CustomPaginationActionsTable = (props) => {
 									100,
 									{ label: 'All', value: -1 },
 								]}
-								colSpan={7}
+								colSpan={columns.length + 2}
 								count={rows.length}
 								rowsPerPage={rowsPerPage}
 								page={page}
