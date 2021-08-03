@@ -18,6 +18,3 @@ SECURITY (done)
 BUGS
 -initial get request on load
 -second post request on searching being empty
--when trying to edit employees, the information of employees from the first page is shown at the same index
---this happens for any employee that is not located on the first page
--could be the update on close (its the update on close)

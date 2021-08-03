@@ -50,7 +50,11 @@ const FormDialog = (props) => {
 		setFirstName(employee.first_name)
 		setLastName(employee.last_name)
 		setEmail(employee.email)
-		setGender(employee.gender)
+		setGender(
+			props.formType === 'Create'
+				? Employee.employeeGenders()[0]
+				: props.employee.gender
+		)
 		setSalary(employee.salary)
 		setJobTitle(employee.job_title)
 		setFirstNameError(false)
@@ -62,24 +66,6 @@ const FormDialog = (props) => {
 		setSalaryError(false)
 		setSalaryHelperText(null)
 	}, [open])
-
-	// const handleClickOpen = () => {
-	// 	setOpen(true)
-	// 	setFirstName(employee.first_name)
-	// 	setLastName(employee.last_name)
-	// 	setEmail(employee.email)
-	// 	setGender(employee.gender)
-	// 	setSalary(employee.salary)
-	// 	setJobTitle(employee.job_title)
-	// 	setFirstNameError(false)
-	// 	setFirstNameHelperText(null)
-	// 	setLastNameError(false)
-	// 	setLastNameHelperText(null)
-	// 	setEmailError(false)
-	// 	setEmailHelperText(null)
-	// 	setSalaryError(false)
-	// 	setSalaryHelperText(null)
-	// }
 
 	const handleClose = () => {
 		setOpen(false)

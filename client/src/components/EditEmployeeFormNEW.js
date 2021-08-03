@@ -9,12 +9,7 @@ const FormDialog = (props) => {
 
 	const handleClickOpen = () => {
 		setOpen(true)
-		console.log(props)
 	}
-
-	// const handleClose = () => {
-	// 	setOpen(false)
-	// }
 
 	const handleSubmit = (employee) => {
 		props.edit(props.employeeIndex, employee)

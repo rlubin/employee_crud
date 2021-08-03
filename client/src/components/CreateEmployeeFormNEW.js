@@ -18,10 +18,6 @@ const FormDialog = (props) => {
 		setOpen(true)
 	}
 
-	// const handleClose = () => {
-	// 	setOpen(false)
-	// }
-
 	const handleSubmit = (employee) => {
 		props.create(employee)
 		setOpen(false)
