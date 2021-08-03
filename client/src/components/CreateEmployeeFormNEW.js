@@ -18,9 +18,9 @@ const FormDialog = (props) => {
 		setOpen(true)
 	}
 
-	const handleClose = () => {
-		setOpen(false)
-	}
+	// const handleClose = () => {
+	// 	setOpen(false)
+	// }
 
 	const handleSubmit = (employee) => {
 		props.create(employee)
@@ -39,7 +39,6 @@ const FormDialog = (props) => {
 			<EmployeeForm
 				employee={new Employee('', '', '', '', '', '', '')}
 				submit={handleSubmit}
-				genders={props.genders}
 				open={open}
 				setOpen={setOpen}
 				formType='Create'></EmployeeForm>

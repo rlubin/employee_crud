@@ -12,9 +12,9 @@ const FormDialog = (props) => {
 		console.log(props)
 	}
 
-	const handleClose = () => {
-		setOpen(false)
-	}
+	// const handleClose = () => {
+	// 	setOpen(false)
+	// }
 
 	const handleSubmit = (employee) => {
 		props.edit(props.employeeIndex, employee)
@@ -29,7 +29,6 @@ const FormDialog = (props) => {
 			<EmployeeForm
 				employee={employee}
 				submit={handleSubmit}
-				genders={props.genders}
 				open={open}
 				setOpen={setOpen}
 				formType='Edit'></EmployeeForm>

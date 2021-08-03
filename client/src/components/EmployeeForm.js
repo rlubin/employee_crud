@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
@@ -31,7 +31,9 @@ const FormDialog = (props) => {
 	const [last_name, setLastName] = useState(employee.last_name)
 	const [email, setEmail] = useState(employee.email)
 	const [gender, setGender] = useState(
-		props.formType === 'Create' ? props.genders[0] : props.employee.gender
+		props.formType === 'Create'
+			? Employee.employeeGenders()[0]
+			: props.employee.gender
 	)
 	const [salary, setSalary] = useState(employee.salary)
 	const [job_title, setJobTitle] = useState(employee.job_title)
@@ -44,8 +46,7 @@ const FormDialog = (props) => {
 	const [emailHelperText, setEmailHelperText] = useState(null)
 	const [salaryHelperText, setSalaryHelperText] = useState(null)
 
-	const handleClickOpen = () => {
-		setOpen(true)
+	useEffect(() => {
 		setFirstName(employee.first_name)
 		setLastName(employee.last_name)
 		setEmail(employee.email)
@@ -60,7 +61,25 @@ const FormDialog = (props) => {
 		setEmailHelperText(null)
 		setSalaryError(false)
 		setSalaryHelperText(null)
-	}
+	}, [open])
+
+	// const handleClickOpen = () => {
+	// 	setOpen(true)
+	// 	setFirstName(employee.first_name)
+	// 	setLastName(employee.last_name)
+	// 	setEmail(employee.email)
+	// 	setGender(employee.gender)
+	// 	setSalary(employee.salary)
+	// 	setJobTitle(employee.job_title)
+	// 	setFirstNameError(false)
+	// 	setFirstNameHelperText(null)
+	// 	setLastNameError(false)
+	// 	setLastNameHelperText(null)
+	// 	setEmailError(false)
+	// 	setEmailHelperText(null)
+	// 	setSalaryError(false)
+	// 	setSalaryHelperText(null)
+	// }
 
 	const handleClose = () => {
 		setOpen(false)
@@ -124,13 +143,12 @@ const FormDialog = (props) => {
 			}
 		}
 		if (errors.length === 0) return true
-
 		return false
 	}
 
 	const handleSubmit = () => {
 		if (isFormValid()) {
-			alert('employee added')
+			alert('form is valid')
 		} else {
 			return
 		}
@@ -188,7 +206,7 @@ const FormDialog = (props) => {
 						value={gender}
 						onChange={handleGenderChange}
 						variant='outlined'>
-						{props.genders.map((gender) => (
+						{Employee.employeeGenders().map((gender) => (
 							<MenuItem key={gender} value={gender}>
 								{gender}
 							</MenuItem>
