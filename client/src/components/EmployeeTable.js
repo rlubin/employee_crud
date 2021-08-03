@@ -19,7 +19,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import API from '../helper/API'
 import Employee from '../helper/Employee'
 import EmployeeTableOptionBar from './EmployeeTableOptionBar'
-import EditEmployeeForm from './EditEmployeeForm'
+// import EditEmployeeForm from './EditEmployeeForm'
+import EditEmployeeForm from './EditEmployeeFormNEW'
 
 const useStyles1 = makeStyles((theme) => ({
 	root: {

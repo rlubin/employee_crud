@@ -2,7 +2,8 @@ import React from 'react'
 import SearchBar from './SearchBar'
 import SortDropdown from './SortDropdown'
 import Grid from '@material-ui/core/Grid'
-import CreateEmployeeForm from './CreateEmployeeForm'
+// import CreateEmployeeForm from './CreateEmployeeForm'
+import CreateEmployeeForm from './CreateEmployeeFormNEW'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({

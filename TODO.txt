@@ -5,21 +5,18 @@ TESTING
 -add testing code, goal is 100% code coverage
 
 ORGANIZATION
--go over all files and makes sure functions are logically where they should be
--keep relevant functionality in relevant files
--make CreateEmployeeForm and EditEmployeeForm the a higher class component
--convert employee accesses from array notation to dot notation
+-make CreateEmployeeForm and EditEmployeeForm a higher-order component called EmployeeForm
 
 REACT
--remove basic alerts and use material-ui alerts
+-remove basic alerts and replace with material-ui alerts modals
 
 SECURITY (done)
--only need to worry about SQL injection
--for sql queries in server using parameter binding
--XSS could be an issue
--data will be displayed in the table, but react automatically escapes HTML
+-SQL injection
+--server using parameter binding for SQL queries
+-XSS
+--react automatically escapes HTML of scripts inside of employee properties when rendered
 
 BUGS
 -initial get request on load
 -second post request on searching being empty
--if no changes made to employee on edit then don't do anything, but currently updates to the same information
+-in EditEmployeeForm seems to display the fields of the first employee instead of the last, the rest are fine

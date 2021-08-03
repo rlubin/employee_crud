@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import FormValidation from '../helper/FormValidation'
 import Employee from '../helper/Employee'
+import EmployeeForm from './EmployeeForm'
 
 const useStyles = makeStyles((theme) => ({
 	root: {

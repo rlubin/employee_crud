@@ -36,7 +36,6 @@ class API {
 	}
 
 	static createEmployee = (Employee) => {
-		// const Employee = new EmployeeFactory(employee)
 		return fetch('/employee-create', {
 			method: 'POST',
 			body: JSON.stringify({ employee: Employee }),
