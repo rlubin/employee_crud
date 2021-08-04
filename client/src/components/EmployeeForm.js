@@ -65,7 +65,7 @@ const FormDialog = (props) => {
 		setEmailHelperText(null)
 		setSalaryError(false)
 		setSalaryHelperText(null)
-	}, [open])
+	}, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleClose = () => {
 		setOpen(false)

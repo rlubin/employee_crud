@@ -18,4 +18,4 @@ SECURITY (done)
 BUGS
 -initial get request on load
 -second post request on searching being empty
--a new search does not adhere to current sort
+-table should not resize as fields change size, should simpy go on the next line

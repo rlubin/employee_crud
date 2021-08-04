@@ -138,7 +138,7 @@ const CustomPaginationActionsTable = (props) => {
 	useEffect(() => {
 		const employeesList = sortEmployees(employees)
 		setEmployees(() => setEmployees(employeesList))
-	}, [employees])
+	}, [employees]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		async function anonFunc() {
@@ -152,7 +152,7 @@ const CustomPaginationActionsTable = (props) => {
 	useEffect(() => {
 		const employeesList = sortEmployees(employees)
 		setEmployees(() => setEmployees(employeesList))
-	}, [sort]) // throws a warning, however can't add employees to dependency list
+	}, [sort]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const searchEmployees = (query) => {
 		setSearch(() => setSearch(query))
