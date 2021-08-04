@@ -2,14 +2,9 @@ READEME
 -add screenshots
 
 TESTING
--add testing code, goal is 100% code coverage
+-add unit tests with jest
 
-ORGANIZATION
-
-REACT
--remove basic alerts and replace with material-ui alerts modals
-
-SECURITY (done)
+SECURITY
 -SQL injection
 --server using parameter binding for SQL queries
 -XSS
@@ -18,4 +13,4 @@ SECURITY (done)
 BUGS
 -initial get request on load
 -second post request on searching being empty
--table should not resize as fields change size, should simpy go on the next line
+--handled this by simply commenting out the intital useEffect on load in EmployeeTable.js

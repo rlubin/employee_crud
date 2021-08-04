@@ -134,7 +134,8 @@ const FormDialog = (props) => {
 
 	const handleSubmit = () => {
 		if (isFormValid()) {
-			alert('form is valid')
+			if (props.formType === 'Edit') alert('Employee edited')
+			if (props.formType === 'Create') alert('Employee created')
 		} else {
 			return
 		}

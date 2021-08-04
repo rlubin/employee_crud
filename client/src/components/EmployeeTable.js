@@ -178,6 +178,9 @@ const CustomPaginationActionsTable = (props) => {
 	}
 
 	const handleDelete = (key) => {
+		if (!window.confirm('Delete employee')) {
+			return
+		}
 		const emplpoyeeToDel = employees[page * rowsPerPage + key]
 		const length = employees.length - 2
 		setEmployees(
@@ -187,7 +190,7 @@ const CustomPaginationActionsTable = (props) => {
 		// if delete last employee on a table page move to new last page
 		const maxPageNumber = Math.floor(length / rowsPerPage)
 		if (page > maxPageNumber) setPage(page - 1)
-		alert('employee deleted')
+		alert('Employee deleted')
 	}
 
 	return (
