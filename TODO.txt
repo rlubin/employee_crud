@@ -18,3 +18,4 @@ SECURITY (done)
 BUGS
 -initial get request on load
 -second post request on searching being empty
+-a new search does not adhere to current sort

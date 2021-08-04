@@ -15,7 +15,6 @@ Web app that allows you to CRUD on a database of Employees.
 
 1. Create a new table using db/create_employees.sql
 2. Populate the table using db/insert_employees.sql
-</ol>
 
 ### Server
 

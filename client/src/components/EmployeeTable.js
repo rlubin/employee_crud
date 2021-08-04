@@ -125,8 +125,19 @@ const CustomPaginationActionsTable = (props) => {
 	// 	anonFunc()
 	// }, [])
 
+	const sortEmployees = (employees) => {
+		const sortParams = sort.split('-')
+		const employeesSorted = Employee.sortEmployees(
+			employees,
+			sortParams[0],
+			sortParams[1]
+		)
+		return employeesSorted
+	}
+
 	useEffect(() => {
-		setEmployees(() => setEmployees(employees))
+		const employeesList = sortEmployees(employees)
+		setEmployees(() => setEmployees(employeesList))
 	}, [employees])
 
 	useEffect(() => {
@@ -139,21 +150,15 @@ const CustomPaginationActionsTable = (props) => {
 	}, [search])
 
 	useEffect(() => {
-		const sortParams = sort.split('-')
-		let employeesList = Employee.sortEmployees(
-			employees,
-			sortParams[0],
-			sortParams[1]
-		)
+		const employeesList = sortEmployees(employees)
 		setEmployees(() => setEmployees(employeesList))
 	}, [sort]) // throws a warning, however can't add employees to dependency list
 
 	const searchEmployees = (query) => {
 		setSearch(() => setSearch(query))
-		setSort(() => setSort(sort))
 	}
 
-	const sortEmployees = (sort) => {
+	const setSortOption = (sort) => {
 		setSort(() => setSort(sort))
 	}
 
@@ -190,7 +195,7 @@ const CustomPaginationActionsTable = (props) => {
 			<TableContainer component={Paper}>
 				<EmployeeTableOptionBar
 					search={searchEmployees}
-					sort={sortEmployees}
+					sort={setSortOption}
 					sortState={sort}
 					sortOptions={employeeSortOptions}
 					create={handleCreate}
