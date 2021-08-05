@@ -201,8 +201,7 @@ const CustomPaginationActionsTable = (props) => {
 					sort={setSortOption}
 					sortState={sort}
 					sortOptions={employeeSortOptions}
-					create={handleCreate}
-					genders={Employee.employeeGenders()}></EmployeeTableOptionBar>
+					create={handleCreate}></EmployeeTableOptionBar>
 				<Table aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>
@@ -233,8 +232,9 @@ const CustomPaginationActionsTable = (props) => {
 									<EditEmployeeForm
 										edit={handleEdit}
 										employeeIndex={page * rowsPerPage + key}
-										employee={employees[page * rowsPerPage + key]}
-										genders={Employee.employeeGenders()}></EditEmployeeForm>
+										employee={
+											employees[page * rowsPerPage + key]
+										}></EditEmployeeForm>
 								</TableCell>
 								<TableCell>
 									<IconButton

@@ -4,6 +4,7 @@ import SortDropdown from './SortDropdown'
 import Grid from '@material-ui/core/Grid'
 import CreateEmployeeForm from './CreateEmployeeForm'
 import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,12 +32,18 @@ const EmployeeTableOptionBar = (props) => {
 					sortOptions={props.sortOptions}></SortDropdown>
 			</Grid>
 			<Grid item>
-				<CreateEmployeeForm
-					create={props.create}
-					genders={props.genders}></CreateEmployeeForm>
+				<CreateEmployeeForm create={props.create}></CreateEmployeeForm>
 			</Grid>
 		</Grid>
 	)
+}
+
+EmployeeTableOptionBar.propTypes = {
+	search: PropTypes.func.isRequired,
+	sort: PropTypes.func.isRequired,
+	sortState: PropTypes.string.isRequired,
+	sortOptions: PropTypes.array.isRequired,
+	create: PropTypes.func.isRequired,
 }
 
 export default EmployeeTableOptionBar

@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import SearchIcon from '@material-ui/icons/Search'
 import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	textField: {
@@ -53,6 +54,10 @@ const SearchBar = (props) => {
 			</form>
 		</Grid>
 	)
+}
+
+SearchBar.propTypes = {
+	search: PropTypes.func.isRequired,
 }
 
 export default SearchBar

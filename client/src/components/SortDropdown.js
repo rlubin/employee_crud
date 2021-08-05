@@ -4,6 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -33,6 +34,12 @@ const SortDropdown = (props) => {
 			</Select>
 		</FormControl>
 	)
+}
+
+SortDropdown.propTypes = {
+	sort: PropTypes.func.isRequired,
+	sortState: PropTypes.string.isRequired,
+	sortOptions: PropTypes.array.isRequired,
 }
 
 export default SortDropdown

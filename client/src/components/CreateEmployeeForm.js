@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import Employee from '../helper/Employee'
 import EmployeeForm from './EmployeeForm'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -40,6 +41,10 @@ const FormDialog = (props) => {
 				formType='Create'></EmployeeForm>
 		</div>
 	)
+}
+
+FormDialog.propTypes = {
+	create: PropTypes.func.isRequired,
 }
 
 export default FormDialog

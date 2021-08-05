@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import FormValidation from '../helper/FormValidation'
 import Employee from '../helper/Employee'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -229,6 +230,14 @@ const FormDialog = (props) => {
 			</Dialog>
 		</div>
 	)
+}
+
+FormDialog.propTypes = {
+	open: PropTypes.bool.isRequired,
+	setOpen: PropTypes.func.isRequired,
+	employee: PropTypes.instanceOf(Employee).isRequired,
+	formType: PropTypes.oneOf(['Create', 'Edit']).isRequired,
+	submit: PropTypes.func.isRequired,
 }
 
 export default FormDialog
