@@ -61,7 +61,7 @@ Most employee fields are a result of user input and will be visible by anyone us
 
 ## User Input
 
-There is some bacis validation of user input on create and edit forms. You can't create or edit an employee without having a first name, last name, email of the form 'email@provider.extension' and a number larger than 0 as the salary.
+There is some bacis validation of user input on create and edit forms. You can't create or edit an employee without having a first name, last name, email of the form email@provider.extension and a number larger than 0 as the salary.
 
 ## How It Looks
 

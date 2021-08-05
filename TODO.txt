@@ -4,4 +4,4 @@ TESTING
 BUGS
 -initial get request on load
 -second post request on searching being empty
---handled this by simply commenting out the intital useEffect on load in EmployeeTable.js
+--workaround: commented out the intital useEffect on load in EmployeeTable.js so that it never uses get and only uses post
