@@ -68,3 +68,4 @@ There is some bacis validation of user input on create and edit forms. You can't
 ![table](screenshots/table.PNG 'Table')
 ![create form](screenshots/create.PNG 'Create')
 ![edit form](screenshots/edit.PNG 'Edit')
+![form validation](screenshots/form_validation.PNG 'Form Validation')
