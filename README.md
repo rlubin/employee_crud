@@ -4,6 +4,12 @@
 
 Web app that allows you to CRUD on a database of Employees.
 
+## Technologies
+
+- Frontend: ReactJS, Material UI
+- Backend: NodeJS, Express, MySQL
+- Database: MySQL
+
 ## Setup
 
 ### Requirements
@@ -42,3 +48,23 @@ Web app that allows you to CRUD on a database of Employees.
 
 1. Navigate to /client
 2. Run `npm test`
+
+## Security Considerations
+
+### SQL Injection
+
+Input to search bar, creation of employees and editing employees is inserted to a SQL query on the server. It is possible that users can type SQL commands into these areas, however I have used parameter bindings in the queries to ensure that user input will not be interpreted as SQL commands.
+
+### Cross Site Scripting
+
+Most employee fields are a result of user input and will be visible by anyone using the site, it is possible to type scripts. Malicious text added to employee fields will automatically be escaped by React when being rendered; meaning user input will be interpreted as text and not HTML.
+
+## User Input
+
+There is some bacis validation of user input on create and edit forms. You can't create or edit an employee without having a first name, last name, email of the form 'email@provider.extension' and a number larger than 0 as the salary.
+
+## How It Looks
+
+![alt text](/screenshots/table.png 'Table')
+![alt text](/screenshots/create.png 'Create')
+![alt text](/screenshots/edit.png 'Edit')

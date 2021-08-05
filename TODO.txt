@@ -1,14 +1,5 @@
-READEME
--add screenshots
-
 TESTING
 -add unit tests with jest
-
-SECURITY
--SQL injection
---server using parameter binding for SQL queries
--XSS
---react automatically escapes HTML of scripts inside of employee properties when rendered
 
 BUGS
 -initial get request on load
