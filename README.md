@@ -65,6 +65,6 @@ There is some bacis validation of user input on create and edit forms. You can't
 
 ## How It Looks
 
-![alt text](/screenshots/table.png 'Table')
-![alt text](/screenshots/create.png 'Create')
-![alt text](/screenshots/edit.png 'Edit')
+![](screenshots/table.png 'Table')
+![](screenshots/create.png 'Create')
+![](screenshots/edit.png 'Edit')
