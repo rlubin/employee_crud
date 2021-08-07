@@ -1,5 +1,7 @@
 TESTING
--add unit tests with jest
+-add unit tests
+-add integration tests
+-add end-to-end tests
 
 BUGS
 -initial get request on load
