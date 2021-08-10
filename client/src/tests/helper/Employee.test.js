@@ -27,18 +27,18 @@ test('Employee.employeeGenders() - verifying genders', () => {
 	])
 })
 
-// test('Employee.employeeTableColumns() - testing table columns', () => {
-// 	const test = Employee.employeeTableColumns()
-// 	expect(test).toEqual([
-// 		{ name: 'Id', width: 50, value: 'id' },
-// 		{ name: 'First name', width: 75, value: 'first_name' },
-// 		{ name: 'Last name', width: 75, value: 'last_name' },
-// 		{ name: 'Email', width: 160, value: 'email' },
-// 		{ name: 'Gender', width: 50, value: 'gender' },
-// 		{ name: 'Salary', width: 50, value: 'salary' },
-// 		{ name: 'Job title', width: 160, value: 'job_title' },
-// 	])
-// })
+test('Employee.employeeTableColumns() - has name and value properties', () => {
+	const test = Employee.employeeTableColumns()
+	expect(test).toMatchObject([
+		{ name: 'Id', value: 'id' },
+		{ name: 'First name', value: 'first_name' },
+		{ name: 'Last name', value: 'last_name' },
+		{ name: 'Email', value: 'email' },
+		{ name: 'Gender', value: 'gender' },
+		{ name: 'Salary', value: 'salary' },
+		{ name: 'Job title', value: 'job_title' },
+	])
+})
 
 test('Employee.employeeSortOptions() - verifying options', () => {
 	const test = Employee.employeeSortOptions()
@@ -84,15 +84,53 @@ test('Employee.sortOptions() - tesing valid outputs', () => {
 	}
 })
 
-test('Employee.sortEmployees() - testing order', () => {
-	const employee1 = new Employee('', '', '', '', '', '', '')
-	const employee2 = new Employee('', '', '', '', '', '', '')
-	const employee3 = new Employee('', '', '', '', '', '', '')
+test('Employee.sortEmployees() - testing sorting order', () => {
+	const employee1 = new Employee(
+		'1',
+		'John',
+		'Smith',
+		'jsmith@hotmail.com',
+		'Male',
+		'1000',
+		'CEO'
+	)
+	const employee2 = new Employee(
+		'10',
+		'George',
+		'Tomson',
+		'gtomson@gmail.com',
+		'Genderqueer',
+		'2344',
+		'Grunt'
+	)
+	const employee3 = new Employee(
+		'100',
+		'Jennifer',
+		'Aniston',
+		'jenani@ston.co.uk',
+		'Agender',
+		'1',
+		'Kitchen'
+	)
 	const employees = [employee1, employee2, employee3]
-	const sorts = []
-	const results = []
+	const sorts = [
+		'id-asc',
+		'id-desc',
+		'first_name-asc',
+		'first_name-desc',
+		'last_name-asc',
+		'last_name-desc',
+	]
+	const results = [
+		[employee1, employee2, employee3],
+		[employee3, employee2, employee1],
+		[employee2, employee3, employee1],
+		[employee1, employee3, employee2],
+		[employee3, employee1, employee2],
+		[employee2, employee1, employee3],
+	]
 	for (let i = 0; i < sorts.length; i++) {
 		const test = Employee.sortEmployees(employees, sorts[i])
-		expect(test).toBe(results[i])
+		expect(test).toStrictEqual(results[i])
 	}
 })
