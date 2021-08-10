@@ -126,12 +126,7 @@ const CustomPaginationActionsTable = (props) => {
 	// }, [])
 
 	const sortEmployees = (employees) => {
-		const sortParams = sort.split('-')
-		const employeesSorted = Employee.sortEmployees(
-			employees,
-			sortParams[0],
-			sortParams[1]
-		)
+		const employeesSorted = Employee.sortEmployees(employees, sort)
 		return employeesSorted
 	}
 

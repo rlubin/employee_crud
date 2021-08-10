@@ -116,7 +116,10 @@ class Employee {
 		return property
 	}
 
-	static sortEmployees = (employeeList, property, direction) => {
+	static sortEmployees = (employeeList, sort) => {
+		const sortParams = sort.split('-')
+		const property = sortParams[0]
+		const direction = sortParams[1]
 		if (direction === 'asc') {
 			return employeeList.sort((employee1, employee2) =>
 				this.lowerCase(employee1[property]) >
