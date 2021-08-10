@@ -61,19 +61,38 @@ test('Employee.lowerCase() - tesing valid input', () => {
 	}
 })
 
+test('Employee.sortOptions() - tesing valid outputs', () => {
+	const tests = [
+		'id-asc',
+		'id-desc',
+		'first_name-asc',
+		'first_name-desc',
+		'last_name-asc',
+		'last_name-desc',
+	]
+	const results = [
+		{ property: 'id', direction: 'asc' },
+		{ property: 'id', direction: 'desc' },
+		{ property: 'first_name', direction: 'asc' },
+		{ property: 'first_name', direction: 'desc' },
+		{ property: 'last_name', direction: 'asc' },
+		{ property: 'last_name', direction: 'desc' },
+	]
+	for (let i = 0; i < tests.length; i++) {
+		const test = Employee.sortOptions(tests[i])
+		expect(test).toStrictEqual(results[i])
+	}
+})
+
 test('Employee.sortEmployees() - testing order', () => {
 	const employee1 = new Employee('', '', '', '', '', '', '')
 	const employee2 = new Employee('', '', '', '', '', '', '')
 	const employee3 = new Employee('', '', '', '', '', '', '')
 	const employees = [employee1, employee2, employee3]
-	const tests = [{}, {}]
+	const sorts = []
 	const results = []
-	for (let i = 0; i < tests.length; i++) {
-		const test = Employee.sortEmployees(
-			employees,
-			tests[i]['property'],
-			tests[i]['direction']
-		)
+	for (let i = 0; i < sorts.length; i++) {
+		const test = Employee.sortEmployees(employees, sorts[i])
 		expect(test).toBe(results[i])
 	}
 })
