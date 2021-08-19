@@ -1,19 +1,19 @@
 import EmployeeFactory from './EmployeeFactory'
 
 class API {
-	static getEmployees = () => {
-		return fetch('/employees')
-			.then((res) => res.json())
-			.then((data) => {
-				let employeeList = data.employees.map((employee) => {
-					return new EmployeeFactory(employee)
-				})
-				return employeeList
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-	}
+	// static getEmployees = () => {
+	// 	return fetch('/employees')
+	// 		.then((res) => res.json())
+	// 		.then((data) => {
+	// 			let employeeList = data.employees.map((employee) => {
+	// 				return new EmployeeFactory(employee)
+	// 			})
+	// 			return employeeList
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error)
+	// 		})
+	// }
 
 	static searchEmployees = (search) => {
 		return fetch('/employees', {

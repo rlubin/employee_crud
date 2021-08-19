@@ -1,5 +1,6 @@
-TESTING
--add unit tests
+TESTING (unfinished)
+-add component tests (https://www.smashingmagazine.com/2020/06/practical-guide-testing-react-applications-jest/)
+-add unit tests (https://dev.to/bytebodger/how-i-fixed-the-unexpected-token-error-in-jest-4o1j)
 -add integration tests
 -add end-to-end tests
 
